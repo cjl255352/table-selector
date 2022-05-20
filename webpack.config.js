@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
+  mode: "development",
+  devtool: "inline-source-map",
   entry: "./src/index.js",
   output: {
     filename: "[name].bundle.js",
@@ -30,5 +32,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()].concat(devMode ? [] : [new MiniCssExtractPlugin()]),
+  plugins: [new HtmlWebpackPlugin()].concat(
+    devMode ? [] : [new MiniCssExtractPlugin()]
+  ),
 };
