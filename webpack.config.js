@@ -19,16 +19,8 @@ module.exports = {
   devtool: isProduction ? "nosources-source-map" : "eval-source-map",
   devServer: {
     static: path.resolve(__dirname, "dist"),
-    host: "0.0.0.0",
-    port: 9000,
     compress: true,
     open: true,
-    proxy: {
-      "/api": {
-        target: "http://localhost:3000",
-        pathRewrite: { "^/api": "" },
-      },
-    },
   },
   module: {
     rules: [
