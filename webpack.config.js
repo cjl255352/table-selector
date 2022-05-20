@@ -1,27 +1,37 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const devMode = process.env.NODE_ENV !== "production";
+const isDev = process.env.NODE_ENV === "development";
+const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
-  mode: "development",
+  mode: process.env.NODE_ENV,
   entry: "./src/index.js",
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
-  devtool: devMode ? "eval-source-map" : "nosources-source-map",
+  devtool: isProd ? "nosources-source-map" : "eval-source-map",
   devServer: {
-    static: "./dist",
-    open: true
+    static: path.resolve(__dirname, "dist"),
+    host: "0.0.0.0",
+    port: 9000,
+    compress: true,
+    open: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        pathRewrite: { "^/api": "" },
+      },
+    },
   },
   module: {
     rules: [
       {
         test: /\.s[ac]ss$/i,
         use: [
-          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          isDev ? "style-loader" : MiniCssExtractPlugin.loader,
           "css-loader",
           "sass-loader",
         ],
@@ -37,6 +47,6 @@ module.exports = {
     ],
   },
   plugins: [new HtmlWebpackPlugin()].concat(
-    devMode ? [] : [new MiniCssExtractPlugin()]
+    isDev ? [] : [new MiniCssExtractPlugin()]
   ),
 };
