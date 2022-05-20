@@ -41,5 +41,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()].concat(isProduction ? [new MiniCssExtractPlugin()] : []),
+  plugins: [new HtmlWebpackPlugin()].concat(
+    isProduction ? [new MiniCssExtractPlugin()] : []
+  ),
 };
