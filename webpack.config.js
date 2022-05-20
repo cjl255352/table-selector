@@ -7,10 +7,15 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: "./src/index.js",
   output: {
-    filename: "[name].bundle.js",
+    filename: "table-selector.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    library: {
+      name: "tableSelector",
+      type: "umd",
+    },
   },
+  optimization: {},
   devtool: isProduction ? "nosources-source-map" : "eval-source-map",
   devServer: {
     static: path.resolve(__dirname, "dist"),
