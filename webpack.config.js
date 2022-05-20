@@ -15,7 +15,6 @@ module.exports = {
       type: "umd",
     },
   },
-  optimization: {},
   devtool: isProduction ? "nosources-source-map" : "eval-source-map",
   devServer: {
     static: path.resolve(__dirname, "dist"),
