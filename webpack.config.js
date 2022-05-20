@@ -1,8 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const isDev = process.env.NODE_ENV === "development";
-const isProd = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === "production";
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -12,7 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
-  devtool: isProd ? "nosources-source-map" : "eval-source-map",
+  devtool: isProduction ? "nosources-source-map" : "eval-source-map",
   devServer: {
     static: path.resolve(__dirname, "dist"),
     host: "0.0.0.0",
@@ -31,7 +30,7 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+          isProduction ? MiniCssExtractPlugin.loader : "style-loader",
           "css-loader",
           "sass-loader",
         ],
@@ -46,7 +45,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()].concat(
-    isDev ? [] : [new MiniCssExtractPlugin()]
-  ),
+  plugins: [new HtmlWebpackPlugin()].concat(isProduction ? [new MiniCssExtractPlugin()] : []),
 };
