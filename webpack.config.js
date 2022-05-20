@@ -5,12 +5,16 @@ const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
   mode: "development",
-  devtool: devMode ? "eval-source-map" : "nosources-source-map",
   entry: "./src/index.js",
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+  },
+  devtool: devMode ? "eval-source-map" : "nosources-source-map",
+  devServer: {
+    static: "./dist",
+    open: true
   },
   module: {
     rules: [
@@ -32,5 +36,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin()].concat(devMode ? [] : [new MiniCssExtractPlugin()]),
+  plugins: [new HtmlWebpackPlugin()].concat(
+    devMode ? [] : [new MiniCssExtractPlugin()]
+  ),
 };
