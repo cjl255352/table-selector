@@ -1,3 +1,3 @@
-import _ from "lodash";
-
-console.log(_.join(["Hello", "webpack"], " "));
+export default function print(text) {
+  console.log(text);
+}
