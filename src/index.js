@@ -8,4 +8,10 @@ function component() {
   return element;
 }
 
-document.body.appendChild(component());
+function open() {
+  document.body.appendChild(component());
+}
+
+export {
+  open
+}
