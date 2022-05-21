@@ -1,11 +1,11 @@
 import "./style.scss";
 
-function component() {
-  const element = document.createElement("div");
-  element.innerText = "hello word";
-  element.classList.add("hello");
+const component = () => {
+  const a = [1, 2, 3];
+  const b = () => {
+    return a;
+  };
+  console.log(...b);
+};
 
-  return element;
-}
-
-document.body.appendChild(component());
+component();
