@@ -1,4 +1,4 @@
-import "./style.scss";
+import "@/style.scss";
 
 function component() {
   const element = document.createElement("div");
@@ -12,6 +12,4 @@ function open() {
   document.body.appendChild(component());
 }
 
-export {
-  open
-}
+export { open };
