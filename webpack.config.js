@@ -56,7 +56,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "public/index.html"),
+    }),
     new ESLintPlugin({ context: path.resolve(__dirname, "src") }),
   ].concat(isProduction ? [new MiniCssExtractPlugin()] : []),
 };
