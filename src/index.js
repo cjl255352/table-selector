@@ -1,8 +1,11 @@
 import "./style.scss";
 
-const component = () => {
-  const set = new Set([1, 2, 3]);
-  console.log(set);
-};
+function component() {
+  const element = document.createElement("div");
 
-component();
+  element.innerHTML = "Hello webpack";
+  element.classList.add("hello");
+  return element;
+}
+
+document.body.appendChild(component());
