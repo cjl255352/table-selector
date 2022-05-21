@@ -34,7 +34,6 @@
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
-    "core-js": "^3.22.5",
-    "snabbdom": "^3.5.0"
+    "core-js": "^3.22.5"
   }
 }
