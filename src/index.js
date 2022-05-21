@@ -7,7 +7,7 @@ import {
   h,
   // eslint-disable-next-line no-unused-vars
   jsx,
-} from "snabbdom";
+} from "./snabbdom.esm.js";
 
 const patch = init([
   // 通过传入模块初始化 patch 函数
