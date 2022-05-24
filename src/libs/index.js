@@ -7,7 +7,7 @@ import {
   h,
   jsx,
 } from "./snabbdom.esm";
-import { initOptions } from "./utils";
+import { initOptions, getMountPoint } from "./utils";
 
 const patch = init([
   classModule,
@@ -16,4 +16,10 @@ const patch = init([
   eventListenersModule,
 ]);
 
-export { patch, h, jsx, initOptions };
+function destroy(vnode, delay = 0) {
+  setTimeout(() => {
+    patch(vnode, h("!"));
+  }, delay);
+}
+
+export { patch, h, jsx, initOptions, destroy, getMountPoint };
