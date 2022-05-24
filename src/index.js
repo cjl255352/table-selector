@@ -16,6 +16,7 @@ function initWrapper(options, status = "enter") {
       on={{
         click: () => {
           destroy(patch(vnode, initWrapper(options, "leave")), 200);
+          destroy(patch(dialog, initDialog(options, "leave")), 300);
         },
       }}
     />
