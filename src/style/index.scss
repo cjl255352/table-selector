@@ -1,5 +1,6 @@
 $class-prefix: "table-selector";
 $wrapper-bg-color: #000;
+$wrapper-opacity: 0.5;
 
 .#{$class-prefix}-wrapper {
   position: fixed;
@@ -7,8 +8,28 @@ $wrapper-bg-color: #000;
   left: 0;
   height: 100%;
   width: 100%;
-  opacity: 0.5;
+  opacity: $wrapper-opacity;
   background-color: $wrapper-bg-color;
+
+  &-enter {
+    animation: wrapper-in 0.2s ease forwards;
+  }
+
+  &-leave {
+    animation: wrapper-out 0.2s ease forwards;
+  }
+}
+
+@keyframes wrapper-in {
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes wrapper-out {
+  100% {
+    opacity: 0;
+  }
 }
 
 .flow-select-dialog {
