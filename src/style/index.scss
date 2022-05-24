@@ -1,6 +1,8 @@
 $class-prefix: "table-selector";
 $wrapper-bg-color: #000;
 $wrapper-opacity: 0.5;
+$dialog-bg-color: #fff;
+$dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 
 .#{$class-prefix}-wrapper {
   position: fixed;
@@ -20,31 +22,22 @@ $wrapper-opacity: 0.5;
   }
 }
 
-@keyframes wrapper-in {
-  0% {
-    opacity: 0;
-  }
-}
-
-@keyframes wrapper-out {
-  100% {
-    opacity: 0;
-  }
-}
-
-.flow-select-dialog {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 300px;
-  width: 400px;
-  transform: translate(-50%, -50%);
+.#{$class-prefix}-dialog {
+  margin: auto;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 30%);
   box-sizing: border-box;
+  background-color: $dialog-bg-color;
+  box-shadow: $dialog-shadow;
+
+  &-enter {
+    animation: dialog-in 0.3s forwards;
+  }
+
+  &-leave {
+    animation: dialog-out 0.3s forwards;
+  }
 
   .flow-select-header {
     height: 40px;
@@ -164,15 +157,21 @@ $wrapper-opacity: 0.5;
   padding: 0 10px;
 }
 
-.dialog-fade-enter-active {
-  animation: dialog-fade-in 0.3s;
+// 动画
+
+@keyframes wrapper-in {
+  0% {
+    opacity: 0;
+  }
 }
 
-.dialog-fade-leave-active {
-  animation: dialog-fade-out 0.3s;
+@keyframes wrapper-out {
+  100% {
+    opacity: 0;
+  }
 }
 
-@keyframes dialog-fade-in {
+@keyframes dialog-in {
   0% {
     transform: translate3d(0, -20px, 0);
     opacity: 0;
@@ -184,7 +183,7 @@ $wrapper-opacity: 0.5;
   }
 }
 
-@keyframes dialog-fade-out {
+@keyframes dialog-out {
   0% {
     transform: translate3d(0, 0, 0);
     opacity: 1;

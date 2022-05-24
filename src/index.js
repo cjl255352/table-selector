@@ -2,8 +2,11 @@
 import { patch, h, jsx, initOptions, destroy, getMountPoint } from "@/libs";
 import "@/style/index.scss";
 
+let wrapper;
+let dialog;
+
 function initWrapper(options, status = "enter") {
-  let vnode = (
+  const vnode = (
     <div
       class={{
         [`${options.classPrefix}-wrapper`]: true,
@@ -19,9 +22,6 @@ function initWrapper(options, status = "enter") {
   );
   return vnode;
 }
-
-let wrapper;
-let dialog;
 
 function close() {
   patch(wrapper, h("!"));
@@ -45,29 +45,24 @@ let closeBtn = (isHover = false) => {
   );
 };
 
-function initDialog() {
-  return (
-    <div class={{ "flow-select-dialog": true }}>
-      <div class={{ "flow-select-header": true }}>
-        <span class={{ "flow-select-title": true }}>流程选择</span>
-        {closeBtn()}
-      </div>
-      <div class={{ "flow-select-filter": true }}>
-        <input
-          class={{ "flow-select-keyword": true }}
-          attrs={{ placeholder: "请输入关键字" }}
-        />
-        <div
-          class={{ "flow-select-search": true }}
-          on={{
-            click: (e) => {
-              console.log(e);
-            },
-          }}
-        />
-      </div>
+function initDialog(options, status = "enter") {
+  const vnode = (
+    <div
+      class={{
+        [`${options.classPrefix}-dialog`]: true,
+        [`${options.classPrefix}-dialog-enter`]: status == "enter",
+        [`${options.classPrefix}-dialog-leave`]: status == "leave",
+      }}
+      style={{
+        height: "300px",
+        width: "50%",
+        marginTop: "15vh",
+      }}
+    >
+      {closeBtn()}
     </div>
   );
+  return vnode;
 }
 
 function open(options = {}) {
