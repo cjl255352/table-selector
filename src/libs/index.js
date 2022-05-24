@@ -6,7 +6,8 @@ import {
   eventListenersModule,
   h,
   jsx,
-} from "@/snabbdom.esm.js";
+} from "./snabbdom.esm";
+import { test } from "./utils";
 
 const patch = init([
   classModule,
@@ -15,4 +16,4 @@ const patch = init([
   eventListenersModule,
 ]);
 
-export { patch, h, jsx };
+export { patch, h, jsx, test };
