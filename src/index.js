@@ -1,13 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-import { patch, h, jsx, test } from "@/libs";
-import defaultOptions from "@/defaultOptions";
-import cloneDeep from "lodash.clonedeep";
+import { patch, h, jsx, initOptions } from "@/libs";
 import "@/style/index.scss";
 
 let wrapper;
 let dialog;
 
-test();
+console.log(initOptions());
 
 function getMountPoint(count = 1) {
   const fragment = document.createDocumentFragment();
@@ -27,7 +25,9 @@ function close() {
 }
 
 function initWrapper() {
-  return <div class={{ "flow-select-wrapper": true }} on={{ click: close }} />;
+  return (
+    <div class={{ "table-selector-wrapper": true }} on={{ click: close }} />
+  );
 }
 
 let closeBtn = (isHover = false) => {
@@ -73,7 +73,7 @@ function initDialog() {
 }
 
 function open(options = {}) {
-  options = Object.assign(cloneDeep(defaultOptions), options);
+  options = initOptions(options);
   console.log(options);
   const [wrapperPoint, dialogPoint] = getMountPoint(2);
   wrapper = initWrapper();

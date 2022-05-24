@@ -1,15 +1,3 @@
-$wrapper-bg-color: #000;
-
-.flow-select-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: $wrapper-bg-color;
-  opacity: 0.5;
-}
-
 .flow-select-dialog {
   position: absolute;
   top: 50%;
