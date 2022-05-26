@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { patch, h, jsx, initOptions, destroy, getMountPoint } from "@/libs";
 import "@/style/index.scss";
-import "@/iconfont/iconfont.js";
 
 let wrapper;
 let dialog;
@@ -44,22 +43,6 @@ function initDialog(options, status = "enter") {
   return vnode;
 }
 
-const svg = h("div", [
-  h("svg", { attrs: { width: 100, height: 100 } }, [
-    h("circle", {
-      attrs: {
-        cx: 50,
-        cy: 50,
-        r: 40,
-        stroke: "green",
-        "stroke-width": 4,
-        fill: "yellow",
-      },
-    }),
-  ]),
-]);
-
-
 function initCloseBtn(isHover = false) {
   const vnode = (
     <div
@@ -74,7 +57,7 @@ function initCloseBtn(isHover = false) {
         },
       }}
     >
-      {svg}
+      <i class={{ "table-selector-iconfont": true, "table-selector-icon-close": true }} />
     </div>
   );
   return vnode;
