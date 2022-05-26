@@ -6,14 +6,6 @@ $wrapper-opacity: 0.5;
 $dialog-bg-color: #fff;
 $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 
-.icon {
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
-
 .#{$class-prefix}-wrapper {
   position: fixed;
   top: 0;
@@ -48,12 +40,12 @@ $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
   &-leave {
     animation: dialog-out 0.3s forwards;
   }
+}
 
-  &-header {
-    position: relative;
-    padding: 10px;
-    border-bottom: 1px solid #dcdfe6;
-  }
+.#{$class-prefix}-header {
+  position: relative;
+  padding: 10px;
+  border-bottom: 1px solid #dcdfe6;
 
   &-title {
     font-size: 18px;
@@ -63,33 +55,10 @@ $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 
   &-close-btn {
     position: absolute;
-    padding: 10px;
+    right: 10px;
+    top: 10px;
+    font-size: 24px;
     cursor: pointer;
-
-    &::before {
-      content: "";
-      height: 1px;
-      width: 20px;
-      background-color: #909399;
-      position: absolute;
-      left: 0;
-      transform: translateY(-50%) rotateZ(45deg);
-    }
-
-    &::after {
-      content: "";
-      height: 1px;
-      width: 20px;
-      background-color: #909399;
-      position: absolute;
-      left: 0;
-      transform: translateY(-50%) rotateZ(-45deg);
-    }
-
-    &.is-hover::before,
-    &.is-hover::after {
-      background-color: green;
-    }
   }
 }
 

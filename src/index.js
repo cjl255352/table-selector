@@ -1,5 +1,13 @@
-// eslint-disable-next-line no-unused-vars
-import { patch, h, jsx, initOptions, destroy, getMountPoint } from "@/libs";
+/* eslint-disable no-unused-vars */
+import {
+  patch,
+  h,
+  jsx,
+  initOptions,
+  destroy,
+  getMountPoint,
+  icon,
+} from "@/libs";
 import "@/style/index.scss";
 
 let wrapper;
@@ -29,35 +37,27 @@ function initDialog(options, status = "enter") {
       }}
       style={{ height: options.height, width: options.width }}
     >
-      <div
-        class={{ [`${options.classPrefix}-dialog-header`]: true }}
-        style={{ textAlign: options.titlePosition }}
-      >
-        <span class={{ [`${options.classPrefix}-title`]: true }}>
-          {options.title}
-        </span>
-        {initCloseBtn(options)}
-      </div>
+      {initHeader(options)}
     </div>
   );
   return vnode;
 }
 
-function initCloseBtn(isHover = false) {
+function initHeader(options) {
   const vnode = (
     <div
-      class={{ "flow-select-close": true, "is-hover": isHover }}
-      on={{
-        click: close,
-        mouseover: (e, vnode) => {
-          patch(vnode, initCloseBtn(!isHover));
-        },
-        mouseleave: (e, vnode) => {
-          patch(vnode, initCloseBtn(!isHover));
-        },
-      }}
+      class={{ [`${options.classPrefix}-header`]: true }}
+      style={{ textAlign: options.titlePosition }}
     >
-      <i class={{ "table-selector-iconfont": true, "table-selector-icon-close": true }} />
+      <span class={{ [`${options.classPrefix}-header-title`]: true }}>
+        {options.title}
+      </span>
+      <div
+        class={{ [`${options.classPrefix}-header-close-btn`]: true }}
+        on={{ click: () => close(options) }}
+      >
+        {icon("close")}
+      </div>
     </div>
   );
   return vnode;
