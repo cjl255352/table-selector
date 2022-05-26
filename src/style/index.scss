@@ -5,7 +5,8 @@ $wrapper-bg-color: #000;
 $wrapper-opacity: 0.5;
 $dialog-bg-color: #fff;
 $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
-$padding: 10px;
+$padding-x: 14px;
+$padding-y: 10px;
 $primary-color: #cf261c;
 $btn-bg-color: rgba(207, 38, 28, 0.1);
 $border-color: #eaeaea;
@@ -48,19 +49,18 @@ $border-color: #eaeaea;
 
 .#{$class-prefix}-header {
   position: relative;
-  padding: $padding;
+  padding: $padding-y $padding-x;
   border-bottom: 1px solid $border-color;
 
   &-title {
     font-size: 18px;
-    line-height: 24px;
     color: #303133;
   }
 
   &-close-btn {
     position: absolute;
     top: 50%;
-    right: $padding;
+    right: $padding-x;
     font-size: 24px;
     cursor: pointer;
     transition: color 0.3s;
