@@ -58,10 +58,10 @@ $border-color: #eaeaea;
   }
 
   &-close-btn {
+    font-size: 24px;
     position: absolute;
     top: 50%;
     right: $padding-x;
-    font-size: 24px;
     cursor: pointer;
     transition: color 0.3s;
     transform: translate3d(0, -50%, 0);
