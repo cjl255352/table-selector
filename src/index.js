@@ -63,7 +63,7 @@ function initHeader(options) {
   return vnode;
 }
 
-function open(options = {}) {
+function open(options) {
   options = initOptions(options);
   const [wrapperPoint, dialogPoint] = getMountPoint(2);
   wrapper = initWrapper(options);
