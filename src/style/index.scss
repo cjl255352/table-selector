@@ -4,6 +4,14 @@ $wrapper-opacity: 0.5;
 $dialog-bg-color: #fff;
 $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
 .#{$class-prefix}-wrapper {
   position: fixed;
   top: 0;
@@ -23,7 +31,7 @@ $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 }
 
 .#{$class-prefix}-dialog {
-  margin: auto;
+  margin: 15vh auto auto;
   display: flex;
   flex-direction: column;
   border-radius: 2px;
@@ -39,49 +47,46 @@ $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
     animation: dialog-out 0.3s forwards;
   }
 
-  .flow-select-header {
-    height: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #ebeef5;
+  &-header {
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #dcdfe6;
+  }
 
-    .flow-select-title {
-      font-size: 18px;
-      color: #303133;
+  &-title {
+    font-size: 18px;
+    line-height: 24px;
+    color: #303133;
+  }
+
+  &-close-btn {
+    position: absolute;
+    padding: 10px;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      height: 1px;
+      width: 20px;
+      background-color: #909399;
+      position: absolute;
+      left: 0;
+      transform: translateY(-50%) rotateZ(45deg);
     }
 
-    .flow-select-close {
-      position: relative;
-      padding: 10px;
-      cursor: pointer;
+    &::after {
+      content: "";
+      height: 1px;
+      width: 20px;
+      background-color: #909399;
+      position: absolute;
+      left: 0;
+      transform: translateY(-50%) rotateZ(-45deg);
+    }
 
-      &::before {
-        content: "";
-        height: 1px;
-        width: 20px;
-        background-color: #909399;
-        position: absolute;
-        left: 0;
-        transform: translateY(-50%) rotateZ(45deg);
-      }
-
-      &::after {
-        content: "";
-        height: 1px;
-        width: 20px;
-        background-color: #909399;
-        position: absolute;
-        left: 0;
-        transform: translateY(-50%) rotateZ(-45deg);
-      }
-
-      &.is-hover::before,
-      &.is-hover::after {
-        background-color: green;
-      }
+    &.is-hover::before,
+    &.is-hover::after {
+      background-color: green;
     }
   }
 }
