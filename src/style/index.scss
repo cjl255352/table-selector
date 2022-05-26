@@ -5,6 +5,10 @@ $wrapper-bg-color: #000;
 $wrapper-opacity: 0.5;
 $dialog-bg-color: #fff;
 $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+$padding: 10px;
+$primary-color: #cf261c;
+$btn-bg-color: rgba(207, 38, 28, 0.1);
+$border-color: #eaeaea;
 
 .#{$class-prefix}-wrapper {
   position: fixed;
@@ -44,8 +48,8 @@ $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 
 .#{$class-prefix}-header {
   position: relative;
-  padding: 10px;
-  border-bottom: 1px solid #dcdfe6;
+  padding: $padding;
+  border-bottom: 1px solid $border-color;
 
   &-title {
     font-size: 18px;
@@ -55,12 +59,20 @@ $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 
   &-close-btn {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    top: 50%;
+    right: $padding;
     font-size: 24px;
     cursor: pointer;
+    transition: color 0.3s;
+    transform: translate3d(0, -50%, 0);
+
+    &:hover {
+      color: $primary-color;
+    }
   }
 }
+
+////////////////////////////////
 
 .flow-select-filter {
   padding: 10px;
