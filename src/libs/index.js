@@ -22,4 +22,15 @@ function destroy(vnode, delay = 0) {
   }, delay);
 }
 
-export { patch, h, jsx, initOptions, destroy, getMountPoint };
+function icon(name) {
+  return (
+    <i
+      class={{
+        "table-selector-iconfont": true,
+        [`table-selector-icon-${name}`]: true,
+      }}
+    />
+  );
+}
+
+export { patch, h, jsx, initOptions, destroy, getMountPoint, icon };
