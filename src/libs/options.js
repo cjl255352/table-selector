@@ -2,8 +2,8 @@ import mock from "./mock";
 
 export default {
   classPrefix: "table-selector",
-  height: "300px",
-  width: "50%",
+  height: "600px",
+  width: "900px",
   title: "流程选择",
   titlePosition: "left",
   searchPlaceholder: "请输入关键字",
@@ -13,10 +13,12 @@ export default {
       prop: "$index",
       headerAlign: "center",
       align: "center",
+      width: 80,
     },
     {
       label: "PDMC领域",
       prop: "domain",
+      width: "150px",
     },
     {
       label: "电子流名称",
@@ -25,6 +27,7 @@ export default {
     {
       label: "电子流owner",
       prop: "owner",
+      width: "130px",
     },
   ],
   searchMethod: mock,
