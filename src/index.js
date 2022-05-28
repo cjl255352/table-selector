@@ -37,6 +37,7 @@ function initDialog(options, status = "enter") {
       style={{ height: options.height, width: options.width }}
     >
       {initHeader(options)}
+      {initSearch(options)}
     </div>
   );
   return vnode;
@@ -56,6 +57,34 @@ function initHeader(options) {
         on={{ click: () => close(options) }}
       >
         {icon("close")}
+      </div>
+    </div>
+  );
+  return vnode;
+}
+
+function initSearch(options) {
+  let keyword = "";
+  const vnode = (
+    <div class={{ [`${options.classPrefix}-search`]: true }}>
+      <input
+        class={{ [`${options.classPrefix}-search-keyword`]: true }}
+        props={{ placeholder: options.searchPlaceholder }}
+        on={{
+          input: (e) => {
+            keyword = e.target.value;
+          },
+        }}
+      />
+      <div
+        class={{ [`${options.classPrefix}-search-btn`]: true }}
+        on={{
+          click: () => {
+            console.log(keyword);
+          },
+        }}
+      >
+        {icon("search")}
       </div>
     </div>
   );
