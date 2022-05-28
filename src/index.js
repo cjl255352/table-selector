@@ -38,6 +38,10 @@ function initDialog(options, status = "enter") {
     >
       {initHeader(options)}
       {initSearch(options)}
+      <div class={{ [`${options.classPrefix}-body`]: true }}>
+        {initTable(options)}
+        {initSelected(options)}
+      </div>
     </div>
   );
   return vnode;
@@ -89,6 +93,14 @@ function initSearch(options) {
     </div>
   );
   return vnode;
+}
+
+function initTable(options) {
+  console.log(options);
+}
+
+function initSelected(options) {
+  console.log(options);
 }
 
 function open(options) {
