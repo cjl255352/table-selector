@@ -117,6 +117,15 @@ $border-color: #eaeaea;
   }
 }
 
+.#{$class-prefix}-body {
+  flex: 1;
+  padding: $padding-y $padding-x;
+}
+
+.#{$class-prefix}-table {
+  height: 100%;
+}
+
 ////////////////////////////////
 
 .flow-select-transfer {

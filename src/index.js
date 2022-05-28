@@ -1,5 +1,6 @@
 import {
   patch,
+  h,
   // eslint-disable-next-line no-unused-vars
   jsx,
   initOptions,
@@ -11,6 +12,7 @@ import "@/style/index.scss";
 
 let wrapper;
 let dialog;
+let table;
 
 function initWrapper(options, status = "enter") {
   const vnode = (
@@ -39,7 +41,10 @@ function initDialog(options, status = "enter") {
       {initHeader(options)}
       {initSearch(options)}
       <div class={{ [`${options.classPrefix}-body`]: true }}>
-        {initTable(options)}
+        {(() => {
+          table = initTable(options);
+          return table;
+        })()}
         {initSelected(options)}
       </div>
     </div>
@@ -84,7 +89,14 @@ function initSearch(options) {
         class={{ [`${options.classPrefix}-search-btn`]: true }}
         on={{
           click: () => {
-            console.log(keyword);
+            if (
+              options.searchMethod &&
+              typeof options.searchMethod === "function"
+            ) {
+              options.searchMethod(keyword, (data) => {
+                searchDone(options, data);
+              });
+            }
           },
         }}
       >
@@ -95,12 +107,64 @@ function initSearch(options) {
   return vnode;
 }
 
-function initTable(options) {
-  console.log(options);
+function initTable(options, rows = [{}, {}, {}]) {
+  const vnode = h(
+    "table",
+    {
+      class: { [`${options.classPrefix}-table`]: true },
+    },
+    (() => {
+      const children = [];
+      children.push(
+        h(
+          "tr",
+          options.columns.map((e) => {
+            return (
+              <th
+                class={{ [`${options.classPrefix}-table-header`]: true }}
+                style={{ textAlign: e.headerAlign || "left" }}
+              >
+                {e.label}
+              </th>
+            );
+          })
+        )
+      );
+      rows.forEach((row) => {
+        children.push(
+          h(
+            "tr",
+            {
+              on: {
+                click: () => {
+                  console.log(row);
+                },
+              },
+            },
+            options.columns.map((column) => {
+              return (
+                <td style={{ textAlign: column.align || "left" }}>
+                  {row[column.prop]}
+                </td>
+              );
+            })
+          )
+        );
+      });
+      return children;
+    })()
+  );
+  return vnode;
 }
 
 function initSelected(options) {
   console.log(options);
+}
+
+function searchDone(options, data = {}) {
+  const { rows } = data;
+  const newVnode = initTable(options, rows);
+  table = patch(table, newVnode);
 }
 
 function open(options) {
