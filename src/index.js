@@ -41,10 +41,7 @@ function initDialog(options, status = "enter") {
       {initHeader(options)}
       {initSearch(options)}
       <div class={{ [`${options.classPrefix}-body`]: true }}>
-        {(() => {
-          table = initTable(options);
-          return table;
-        })()}
+        {initTable(options)}
         {initSelected(options)}
       </div>
     </div>
@@ -107,7 +104,7 @@ function initSearch(options) {
   return vnode;
 }
 
-function initTable(options, rows = [{}, {}, {}]) {
+function initTable(options, rows = []) {
   const vnode = h(
     "table",
     {
@@ -118,41 +115,44 @@ function initTable(options, rows = [{}, {}, {}]) {
       children.push(
         h(
           "tr",
-          options.columns.map((e) => {
-            return (
-              <th
-                class={{ [`${options.classPrefix}-table-header`]: true }}
-                style={{ textAlign: e.headerAlign || "left" }}
-              >
-                {e.label}
-              </th>
-            );
-          })
+          options.columns.map((e) => (
+            <th style={{ textAlign: e.headerAlign || "left" }}>{e.label}</th>
+          ))
         )
       );
       rows.forEach((row) => {
-        children.push(
-          h(
-            "tr",
-            {
-              on: {
-                click: () => {
-                  console.log(row);
-                },
-              },
-            },
-            options.columns.map((column) => {
-              return (
-                <td style={{ textAlign: column.align || "left" }}>
-                  {row[column.prop]}
-                </td>
-              );
-            })
-          )
-        );
+        children.push(initRow(options, row));
       });
       return children;
     })()
+  );
+  if (!table) {
+    table = vnode;
+  }
+  return vnode;
+}
+
+function initRow(options, row) {
+  const vnode = h(
+    "tr",
+    {
+      class: {
+        [`${options.classPrefix}-table-row-selected`]: row.$selected,
+      },
+      on: {
+        click: () => {
+          row.$selected = !row.$selected;
+          patch(vnode, initRow(row));
+        },
+      },
+    },
+    options.columns.map((column) => {
+      return (
+        <td style={{ textAlign: column.align || "left" }}>
+          {row[column.prop]}
+        </td>
+      );
+    })
   );
   return vnode;
 }
