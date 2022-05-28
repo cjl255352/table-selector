@@ -31,4 +31,5 @@ export default {
     },
   ],
   searchMethod: mock,
+  tableWidth: "66.6666%",
 };
