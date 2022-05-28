@@ -16,3 +16,13 @@ export function getMountPoint(count = 1) {
   document.body.appendChild(fragment);
   return count === 1 ? list[0] : list;
 }
+
+export function getSize(value) {
+  if (
+    typeof value == "number" ||
+    (typeof value == "string" && !isNaN(Number(value)))
+  ) {
+    return `${value}px`;
+  }
+  return value;
+}

@@ -7,7 +7,7 @@ import {
   h,
   jsx,
 } from "./snabbdom.esm";
-import { initOptions, getMountPoint } from "./utils";
+import { initOptions, getMountPoint, getSize } from "./utils";
 
 const patch = init([
   classModule,
@@ -33,4 +33,4 @@ function icon(name) {
   );
 }
 
-export { patch, h, jsx, initOptions, destroy, getMountPoint, icon };
+export { patch, h, jsx, initOptions, destroy, getMountPoint, icon, getSize };
