@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import {
   patch,
-  h,
+  // eslint-disable-next-line no-unused-vars
   jsx,
   initOptions,
   destroy,
