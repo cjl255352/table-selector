@@ -7,6 +7,8 @@ $dialog-bg-color: #fff;
 $dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
 $padding-x: 14px;
 $padding-y: 10px;
+$margin-x: 14px;
+$margin-y: 10px;
 $primary-color: #cf261c;
 $btn-bg-color: rgba(207, 38, 28, 0.1);
 $border-color: #eaeaea;
@@ -54,17 +56,19 @@ $border-color: #eaeaea;
 
   &-title {
     font-size: 18px;
+    line-height: 24px;
     color: #303133;
   }
 
   &-close-btn {
     font-size: 24px;
+    color: #8a8a8a;
     position: absolute;
     top: 50%;
     right: $padding-x;
+    transform: translate3d(0, -50%, 0);
     cursor: pointer;
     transition: color 0.3s;
-    transform: translate3d(0, -50%, 0);
 
     &:hover {
       color: $primary-color;
