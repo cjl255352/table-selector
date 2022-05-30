@@ -77,11 +77,7 @@ function initSearch(options) {
       <input
         class={{ [`${options.classPrefix}-search-keyword`]: true }}
         props={{ placeholder: options.searchPlaceholder }}
-        on={{
-          input: (e) => {
-            keyword = e.target.value;
-          },
-        }}
+        on={{ input: (e) => (keyword = e.target.value) }}
       />
       <div
         class={{ [`${options.classPrefix}-search-btn`]: true }}
