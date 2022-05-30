@@ -1,9 +1,4 @@
-import cloneDeep from "lodash.clonedeep";
-import defaultOptions from "./options";
-
-export function initOptions(options = {}) {
-  return Object.assign(cloneDeep(defaultOptions), options);
-}
+let scrollBarWidth;
 
 export function getMountPoint(count = 1) {
   const fragment = document.createDocumentFragment();
@@ -17,12 +12,23 @@ export function getMountPoint(count = 1) {
   return count === 1 ? list[0] : list;
 }
 
-export function getSize(value) {
-  if (
-    typeof value == "number" ||
-    (typeof value == "string" && !isNaN(Number(value)))
-  ) {
-    return `${value}px`;
+export function getScrollBarWidth() {
+  if (scrollBarWidth !== undefined) {
+    return scrollBarWidth;
   }
-  return value;
+  const outer = document.createElement("div");
+  outer.style.visibility = "hidden";
+  outer.style.width = "100px";
+  outer.style.position = "absolute";
+  outer.style.top = "-9999px";
+  document.body.appendChild(outer);
+  const widthNoScroll = outer.offsetWidth;
+  outer.style.overflow = "scroll";
+  const inner = document.createElement("div");
+  inner.style.width = "100%";
+  outer.appendChild(inner);
+  const widthWithScroll = inner.offsetWidth;
+  outer.parentNode.removeChild(outer);
+  scrollBarWidth = widthNoScroll - widthWithScroll;
+  return scrollBarWidth;
 }
