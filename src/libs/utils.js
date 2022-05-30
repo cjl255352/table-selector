@@ -30,5 +30,5 @@ export function getScrollBarWidth() {
   const widthWithScroll = inner.offsetWidth;
   outer.parentNode.removeChild(outer);
   scrollBarWidth = widthNoScroll - widthWithScroll;
-  return scrollBarWidth;
+  return `${scrollBarWidth}px`;
 }
