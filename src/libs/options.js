@@ -10,7 +10,7 @@ const defaultOptions = {
   searchPlaceholder: "请输入关键字",
   columns: [],
   searchMethod: mock,
-  tableWidth: "66.6666%",
+  dataTableWidth: "66.6666%",
 };
 
 const defaultColumnOptions = {
