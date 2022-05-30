@@ -83,10 +83,7 @@ function initSearch(options) {
         class={{ [`${options.classPrefix}-search-btn`]: true }}
         on={{
           click: () => {
-            if (
-              options.searchMethod &&
-              typeof options.searchMethod == "function"
-            ) {
+            if (options.searchMethod && typeof options.searchMethod == "function") {
               options.searchMethod(keyword, (data) => {
                 searchDone(options, data);
               });
