@@ -1,5 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 import mock from "./mock";
+import { getScrollBarWidth } from "./utils";
 
 const defaultOptions = {
   classPrefix: "table-selector",
@@ -28,7 +29,7 @@ function formatSize(value) {
   return value;
 }
 
-function initColumns(columns) {
+function initColumns(columns, isScrollbar = false) {
   const hasWidth = [];
   columns.forEach((e) => {
     Object.assign(cloneDeep(defaultColumnOptions), e);
@@ -38,7 +39,7 @@ function initColumns(columns) {
     }
   });
   if (hasWidth.length != columns.length) {
-    let formula = "";
+    let formula = isScrollbar ? ` - ${getScrollBarWidth()}` : "";
     hasWidth.forEach((e) => {
       formula += ` - ${e.width}`;
     });
