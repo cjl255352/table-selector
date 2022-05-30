@@ -45,9 +45,7 @@ function initColumns(columns, isScrollbar = false) {
     });
     formula = `calc((100%${formula}) / ${columns.length - hasWidth.length})`;
     columns.forEach((e) => {
-      if (!e.width) {
-        e.width = formula;
-      }
+      !e.width && (e.width = formula);
     });
   }
 }
