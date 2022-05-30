@@ -7,7 +7,14 @@ import {
   h,
   jsx,
 } from "./snabbdom.esm";
-import { initOptions, getMountPoint, getSize } from "./utils";
+import {
+  defaultOptions,
+  defaultColumnOptions,
+  formatSize,
+  initColumns,
+  initOptions,
+} from "./options";
+import { getMountPoint, getScrollBarWidth } from "./utils";
 
 const patch = init([
   classModule,
@@ -33,4 +40,17 @@ function icon(name) {
   );
 }
 
-export { patch, h, jsx, initOptions, destroy, getMountPoint, icon, getSize };
+export {
+  patch,
+  h,
+  jsx,
+  destroy,
+  icon,
+  defaultOptions,
+  defaultColumnOptions,
+  formatSize,
+  initColumns,
+  initOptions,
+  getMountPoint,
+  getScrollBarWidth,
+};
