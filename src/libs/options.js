@@ -2,7 +2,7 @@ import mock from "./mock";
 
 export default {
   classPrefix: "table-selector",
-  height: "600px",
+  height: "300px",
   width: "900px",
   title: "流程选择",
   titlePosition: "left",

@@ -7,6 +7,7 @@ import {
   destroy,
   getMountPoint,
   icon,
+  getSize,
 } from "@/libs";
 import "@/style/index.scss";
 
@@ -105,26 +106,44 @@ function initSearch(options) {
 }
 
 function initTable(options, rows = []) {
-  const vnode = h(
-    "table",
-    {
-      class: { [`${options.classPrefix}-table`]: true },
-    },
-    (() => {
-      const children = [];
-      children.push(
-        h(
-          "tr",
-          options.columns.map((e) => (
-            <th style={{ textAlign: e.headerAlign || "left" }}>{e.label}</th>
-          ))
-        )
-      );
-      rows.forEach((row) => {
-        children.push(initRow(options, row));
-      });
-      return children;
-    })()
+  const vnode = (
+    <div
+      class={{ [`${options.classPrefix}-table`]: true }}
+      style={{ width: getSize(options.tableWidth) }}
+    >
+      <div class={{ [`${options.classPrefix}-table-header-wrapper`]: true }}>
+        {h(
+          "table",
+          {
+            class: { [`${options.classPrefix}-table-header`]: true },
+          },
+          [
+            h(
+              "tr",
+              options.columns.map((e) => (
+                <th
+                  style={{
+                    textAlign: e.headerAlign || "left",
+                    width: getSize(e.width),
+                  }}
+                >
+                  {e.label}
+                </th>
+              ))
+            ),
+          ]
+        )}
+      </div>
+      <div class={{ [`${options.classPrefix}-table-body-wrapper`]: true }}>
+        {h(
+          "table",
+          {
+            class: { [`${options.classPrefix}-table-body`]: true },
+          },
+          rows.map((row) => initRow(options, row))
+        )}
+      </div>
+    </div>
   );
   if (!table) {
     table = vnode;
@@ -136,9 +155,7 @@ function initRow(options, row) {
   const vnode = h(
     "tr",
     {
-      class: {
-        [`${options.classPrefix}-table-row-selected`]: row.$selected,
-      },
+      class: { [`${options.classPrefix}-table-row-selected`]: row.$selected },
       on: {
         click: () => {
           row.$selected = !row.$selected;
@@ -147,8 +164,15 @@ function initRow(options, row) {
       },
     },
     options.columns.map((column) => {
+      console.log(column.width === undefined);
       return (
-        <td style={{ textAlign: column.align || "left" }}>
+        <td
+          style={{
+            textAlign: column.align || "left",
+            width: getSize(column.width),
+            flex: column.width === undefined ? 1 : 0,
+          }}
+        >
           {row[column.prop]}
         </td>
       );
@@ -179,6 +203,7 @@ function open(options) {
 function close(options) {
   destroy(patch(wrapper, initWrapper(options, "leave")), 200);
   destroy(patch(dialog, initDialog(options, "leave")), 300);
+  table = undefined;
 }
 
 export { open, close };
