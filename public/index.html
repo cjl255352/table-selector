@@ -7,6 +7,37 @@
     <title>Document</title>
   </head>
   <body>
-    <button onclick="tableSelector.open()">测试</button>
+    <script>
+      const options = {
+        columns: [
+          {
+            label: "序号",
+            prop: "$index",
+            headerAlign: "center",
+            align: "center",
+            width: 80,
+          },
+          {
+            label: "PDMC领域",
+            prop: "domain",
+            width: "150px",
+          },
+          {
+            label: "电子流名称",
+            prop: "name",
+          },
+          {
+            label: "电子流名称",
+            prop: "name",
+          },
+          {
+            label: "电子流owner",
+            prop: "owner",
+            width: "130px",
+          },
+        ],
+      };
+    </script>
+    <button onclick="tableSelector.open(options)">测试</button>
   </body>
 </html>
