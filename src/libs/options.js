@@ -4,15 +4,15 @@ import { getScrollBarWidth } from "./utils";
 
 const defaultOptions = {
   classPrefix: "table-selector",
-  height: "300px",
-  width: "900px",
+  height: 300,
+  width: 900,
   title: "流程选择",
   titlePosition: "left",
   searchPlaceholder: "请输入关键字",
-  columns: [],
   searchMethod: mock,
+  tableRowHeight: 40,
   dataTableWidth: "66.6666%",
-  tableRowHeight: 32,
+  columns: [],
 };
 
 const defaultColumnOptions = {
@@ -31,9 +31,15 @@ function formatSize(value) {
 }
 
 function initColumns(columns, isScrollbar = false) {
+  const alignMap = {
+    left: "flex-start",
+    center: "center",
+    right: "flex-end",
+  };
   const hasWidth = [];
   columns.forEach((e) => {
-    Object.assign(cloneDeep(defaultColumnOptions), e);
+    e.headerAlign && (e.headerAlign = alignMap[e.headerAlign]);
+    e.align && (e.align = alignMap[e.align]);
     if (e.width) {
       e.width = formatSize(e.width);
       hasWidth.push(e);
