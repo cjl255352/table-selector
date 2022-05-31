@@ -32,3 +32,7 @@ export function getScrollBarWidth() {
   scrollBarWidth = widthNoScroll - widthWithScroll;
   return `${scrollBarWidth}px`;
 }
+
+export function isFunction(fn) {
+  return fn && typeof fn == "function";
+}

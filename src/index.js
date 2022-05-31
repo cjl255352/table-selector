@@ -8,6 +8,7 @@ import {
   getMountPoint,
   icon,
   formatSize,
+  isFunction,
 } from "@/libs";
 import "@/style/index.scss";
 
@@ -87,10 +88,7 @@ function initSearch(options) {
         class={{ [`${options.classPrefix}-search-btn`]: true }}
         on={{
           click: () => {
-            if (
-              options.searchMethod &&
-              typeof options.searchMethod == "function"
-            ) {
+            if (isFunction(options.searchMethod)) {
               options.searchMethod(keyword, (data) =>
                 searchDone(options, data)
               );
@@ -112,7 +110,7 @@ function initDataTable(options, rows = []) {
       class: { [`${options.classPrefix}-table`]: true },
       style: { width: formatSize(options.dataTableWidth) },
     },
-    initTable(options, rows)
+    initTable(options, rows, options.rowClick)
   );
   if (!dataTable) {
     dataTable = vnode;
@@ -132,7 +130,7 @@ function initSelectedTable(options, rows = []) {
   // return vnode;
 }
 
-function initTable(options, rows = []) {
+function initTable(options, rows = [], rowClick) {
   const table = [];
   table.push(
     h(
@@ -151,12 +149,12 @@ function initTable(options, rows = []) {
       ))
     )
   );
-  rows.map((row) => table.push(initTableRow(options, row)));
+  rows.forEach((row) => table.push(initTableRow(options, row, rowClick)));
   table.push(<div class={{ [`${options.classPrefix}-table-empty`]: true }} />);
   return table;
 }
 
-function initTableRow(options, row) {
+function initTableRow(options, row, rowClick) {
   const vnode = h(
     "div",
     {
@@ -165,6 +163,13 @@ function initTableRow(options, row) {
         [`${options.classPrefix}-table-row-selected`]: row.$selected,
       },
       style: { height: formatSize(options.tableRowHeight) },
+      on: {
+        click: () => {
+          if (isFunction(rowClick)) {
+            rowClick(row, vnode);
+          }
+        },
+      },
     },
     options.columns.map((column) => (
       <div

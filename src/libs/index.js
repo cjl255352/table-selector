@@ -14,7 +14,7 @@ import {
   initColumns,
   initOptions,
 } from "./options";
-import { getMountPoint, getScrollBarWidth } from "./utils";
+import { getMountPoint, getScrollBarWidth, isFunction } from "./utils";
 
 const patch = init([
   classModule,
@@ -53,4 +53,5 @@ export {
   initOptions,
   getMountPoint,
   getScrollBarWidth,
+  isFunction,
 };
