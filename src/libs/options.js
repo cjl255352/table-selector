@@ -12,6 +12,7 @@ const defaultOptions = {
   columns: [],
   searchMethod: mock,
   dataTableWidth: "66.6666%",
+  tableRowHeight: 32,
 };
 
 const defaultColumnOptions = {
