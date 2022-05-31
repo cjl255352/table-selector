@@ -42,7 +42,7 @@ function initDialog(options, status = "enter") {
       {initHeader(options)}
       {initSearch(options)}
       <div class={{ [`${options.classPrefix}-body`]: true }}>
-        {initDataTable(options)}
+        {initTable(options)}
         {initSelectedTable(options)}
       </div>
     </div>
@@ -96,6 +96,45 @@ function initSearch(options) {
   return vnode;
 }
 
+function initTable(options, rows = []) {
+  const children = [];
+  children.push(
+    h(
+      "div",
+      {
+        class: { [`${options.classPrefix}-table-header`]: true },
+        style: { height: formatSize(options.tableRowHeight) },
+      },
+      options.columns.map((e) => (
+        <div
+          class={{ [`${options.classPrefix}-table-cell`]: true }}
+          style={{ justifyContent: e.headerAlign, width: e.width }}
+        >
+          <span>{e.label}</span>
+        </div>
+      ))
+    )
+  );
+  rows.map((row) => children.push(initTableRow(options, row)));
+
+  children.push(
+    <div class={{ [`${options.classPrefix}-table-empty`]: true }} />
+  );
+
+  const vnode = h(
+    "div",
+    {
+      class: { [`${options.classPrefix}-table`]: true },
+      style: { width: formatSize(options.dataTableWidth) },
+    },
+    children
+  );
+  if (!dataTable) {
+    dataTable = vnode;
+  }
+  return vnode;
+}
+
 function initTableHeader(options) {
   const vnode = (
     <div class={{ [`${options.classPrefix}-table-header-wrapper`]: true }}>
@@ -105,9 +144,7 @@ function initTableHeader(options) {
           class: { [`${options.classPrefix}-table-header`]: true },
         },
         options.columns.map((e) => (
-          <th style={{ textAlign: e.headerAlign, width: e.width }}>
-            {e.label}
-          </th>
+          <th style={{ textAlign: e.align, width: e.width }}>{e.label}</th>
         ))
       )}
     </div>
@@ -117,23 +154,22 @@ function initTableHeader(options) {
 
 function initTableRow(options, row) {
   const vnode = h(
-    "tr",
+    "div",
     {
-      class: { [`${options.classPrefix}-table-row-selected`]: row.$selected },
-      on: {
-        click: () => {
-          row.$selected = !row.$selected;
-          patch(vnode, initTableRow(row));
-        },
+      class: {
+        [`${options.classPrefix}-table-row`]: true,
+        [`${options.classPrefix}-table-row-selected`]: row.$selected,
       },
+      style: { height: formatSize(options.tableRowHeight) },
     },
-    options.columns.map((column) => {
-      return (
-        <td style={{ textAlign: column.align, width: column.width }}>
-          {row[column.prop]}
-        </td>
-      );
-    })
+    options.columns.map((column) => (
+      <div
+        class={{ [`${options.classPrefix}-table-cell`]: true }}
+        style={{ justifyContent: column.align, width: column.width }}
+      >
+        <span>{row[column.prop]}</span>
+      </div>
+    ))
   );
   return vnode;
 }
@@ -169,13 +205,15 @@ function initDataTable(options, rows = []) {
   return vnode;
 }
 
+console.log(initDataTable);
+
 function initSelectedTable(options) {
   console.log(options);
 }
 
 function searchDone(options, data = {}) {
   const { rows } = data;
-  const newVnode = initDataTable(options, rows);
+  const newVnode = initTable(options, rows);
   dataTable = patch(dataTable, newVnode);
 }
 
