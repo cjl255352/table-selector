@@ -226,7 +226,6 @@ function open(options) {
   dialog = initDialog(options);
   patch(wrapperPoint, wrapper);
   patch(dialogPoint, dialog);
-  console.log(dialog);
 }
 
 function close(options) {
