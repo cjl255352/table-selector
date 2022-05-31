@@ -195,6 +195,17 @@ $border-color: #eaeaea;
   }
 }
 
+.#{$class-prefix}-selected-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &-clear {
+    cursor: pointer;
+    color: #cf261c;
+  }
+}
+
 ////////////////////////////////
 
 .flow-select-transfer {

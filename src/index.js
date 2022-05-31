@@ -124,38 +124,31 @@ function initDataTable(options, rows = []) {
   return vnode;
 }
 
+function initClearBtn(options, rows) {
+  return (
+    <div class={{ [`${options.classPrefix}-selected-header`]: true }}>
+      <span>已选择{`（${rows.length}）`}</span>
+      <div
+        class={{ [`${options.classPrefix}-selected-header-clear`]: true }}
+        on={{
+          click: () => {
+            patch(selectedTable, initSelectedTable(options, []));
+          },
+        }}
+      >
+        清空
+      </div>
+    </div>
+  );
+}
+
 function initSelectedTable(options, rows = []) {
   const vnode = h(
     "div",
     { class: { [`${options.classPrefix}-table`]: true }, style: { flex: 1 } },
     initTable(
       options,
-      [
-        {
-          label: (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
-              <span>已选择{`（${rows.length}）`}</span>
-              <div
-                on={{
-                  click: () => {
-                    console.log(rows);
-                  },
-                }}
-              >
-                清空
-              </div>
-            </div>
-          ),
-          prop: "id",
-          width: "100%",
-        },
-      ],
+      [{ label: initClearBtn(options, rows), prop: "id", width: "100%" }],
       rows
     )
   );
