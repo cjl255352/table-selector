@@ -103,6 +103,11 @@ function initSearch(options) {
   return vnode;
 }
 
+function rowClick(row, rowVnode, options) {
+  row.$selected = !row.$selected;
+  patch(rowVnode, initTableRow(options, row, rowClick));
+}
+
 function initDataTable(options, rows = []) {
   const vnode = h(
     "div",
@@ -110,7 +115,7 @@ function initDataTable(options, rows = []) {
       class: { [`${options.classPrefix}-table`]: true },
       style: { width: formatSize(options.dataTableWidth) },
     },
-    initTable(options, rows, options.rowClick)
+    initTable(options, rows, rowClick)
   );
   if (!dataTable) {
     dataTable = vnode;
@@ -166,7 +171,7 @@ function initTableRow(options, row, rowClick) {
       on: {
         click: () => {
           if (isFunction(rowClick)) {
-            rowClick(row, vnode);
+            rowClick(row, vnode, options);
           }
         },
       },
