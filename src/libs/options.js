@@ -37,15 +37,16 @@ function initColumns(columns, isScrollbar = false) {
     right: "flex-end",
   };
   const hasWidth = [];
-  columns.forEach((e) => {
-    e = Object.assign(cloneDeep(defaultColumnOptions), e);
+  for (let i = 0; i < columns.length; i++) {
+    columns[i] = Object.assign(cloneDeep(defaultColumnOptions), columns[i]);
+    const e = columns[i];
     e.headerAlign = alignMap[e.headerAlign];
     e.align = alignMap[e.align];
     if (e.width) {
       e.width = formatSize(e.width);
       hasWidth.push(e);
     }
-  });
+  }
   if (hasWidth.length != columns.length) {
     let formula = isScrollbar ? ` - ${getScrollBarWidth()}` : "";
     hasWidth.forEach((e) => {
