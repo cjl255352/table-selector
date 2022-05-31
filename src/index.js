@@ -103,9 +103,9 @@ function initSearch(options) {
   return vnode;
 }
 
-function rowClick(row, rowVnode, options) {
+function rowClick(row, rowVnode, options, columns) {
   row.$selected = !row.$selected;
-  patch(rowVnode, initTableRow(options, row, rowClick));
+  patch(rowVnode, initTableRow(options, columns, row, rowClick));
 }
 
 function initDataTable(options, rows = []) {
@@ -115,7 +115,7 @@ function initDataTable(options, rows = []) {
       class: { [`${options.classPrefix}-table`]: true },
       style: { width: formatSize(options.dataTableWidth) },
     },
-    initTable(options, rows, rowClick)
+    initTable(options, options.columns, rows, rowClick)
   );
   if (!dataTable) {
     dataTable = vnode;
@@ -135,7 +135,7 @@ function initSelectedTable(options, rows = []) {
   // return vnode;
 }
 
-function initTable(options, rows = [], rowClick) {
+function initTable(options, columns, rows = [], rowClick) {
   const table = [];
   table.push(
     h(
@@ -144,7 +144,7 @@ function initTable(options, rows = [], rowClick) {
         class: { [`${options.classPrefix}-table-header`]: true },
         style: { height: formatSize(options.tableRowHeight) },
       },
-      options.columns.map((e) => (
+      columns.map((e) => (
         <div
           class={{ [`${options.classPrefix}-table-cell`]: true }}
           style={{ justifyContent: e.headerAlign, width: e.width }}
@@ -154,12 +154,14 @@ function initTable(options, rows = [], rowClick) {
       ))
     )
   );
-  rows.forEach((row) => table.push(initTableRow(options, row, rowClick)));
+  rows.forEach((row) =>
+    table.push(initTableRow(options, columns, row, rowClick))
+  );
   table.push(<div class={{ [`${options.classPrefix}-table-empty`]: true }} />);
   return table;
 }
 
-function initTableRow(options, row, rowClick) {
+function initTableRow(options, columns, row, rowClick) {
   const vnode = h(
     "div",
     {
@@ -171,12 +173,12 @@ function initTableRow(options, row, rowClick) {
       on: {
         click: () => {
           if (isFunction(rowClick)) {
-            rowClick(row, vnode, options);
+            rowClick(row, vnode, options, columns);
           }
         },
       },
     },
-    options.columns.map((column) => (
+    columns.map((column) => (
       <div
         class={{ [`${options.classPrefix}-table-cell`]: true }}
         style={{ justifyContent: column.align, width: column.width }}
