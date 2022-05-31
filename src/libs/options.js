@@ -38,8 +38,9 @@ function initColumns(columns, isScrollbar = false) {
   };
   const hasWidth = [];
   columns.forEach((e) => {
-    e.headerAlign && (e.headerAlign = alignMap[e.headerAlign]);
-    e.align && (e.align = alignMap[e.align]);
+    e = Object.assign(cloneDeep(defaultColumnOptions), e);
+    e.headerAlign = alignMap[e.headerAlign];
+    e.align = alignMap[e.align];
     if (e.width) {
       e.width = formatSize(e.width);
       hasWidth.push(e);
