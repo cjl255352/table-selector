@@ -9,6 +9,7 @@ import {
   icon,
   formatSize,
   isFunction,
+  isVnode,
 } from "@/libs";
 import "@/style/index.scss";
 
@@ -126,13 +127,42 @@ function initDataTable(options, rows = []) {
 function initSelectedTable(options, rows = []) {
   const vnode = h(
     "div",
-    { class: { [`${options.classPrefix}-table`]: true } },
-    initTable(options, rows)
+    { class: { [`${options.classPrefix}-table`]: true }, style: { flex: 1 } },
+    initTable(
+      options,
+      [
+        {
+          label: (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              <span>已选择{`（${rows.length}）`}</span>
+              <div
+                on={{
+                  click: () => {
+                    console.log(rows);
+                  },
+                }}
+              >
+                清空
+              </div>
+            </div>
+          ),
+          prop: "id",
+          width: "100%",
+        },
+      ],
+      rows
+    )
   );
   if (!selectedTable) {
     selectedTable = vnode;
   }
-  // return vnode;
+  return vnode;
 }
 
 function initTable(options, columns, rows = [], rowClick) {
@@ -149,7 +179,7 @@ function initTable(options, columns, rows = [], rowClick) {
           class={{ [`${options.classPrefix}-table-cell`]: true }}
           style={{ justifyContent: e.headerAlign, width: e.width }}
         >
-          <span>{e.label}</span>
+          {isVnode(e.label) ? e.label : <span>{e.label}</span>}
         </div>
       ))
     )
@@ -203,6 +233,7 @@ function open(options) {
   dialog = initDialog(options);
   patch(wrapperPoint, wrapper);
   patch(dialogPoint, dialog);
+  console.log(dialog);
 }
 
 function close(options) {

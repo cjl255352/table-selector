@@ -36,3 +36,9 @@ export function getScrollBarWidth() {
 export function isFunction(fn) {
   return fn && typeof fn == "function";
 }
+
+export function isVnode(vnode) {
+  return (
+    Object.prototype.toString.call(vnode) == "[object Object]" && vnode.sel
+  );
+}
