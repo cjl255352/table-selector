@@ -150,8 +150,14 @@ $border-color: #eaeaea;
     border-top: 1px solid $border-color;
   }
 
-  &-row:hover {
-    background-color: #909399;
+  &-row {
+    &:hover {
+      background-color: #909399;
+    }
+
+    &-selected {
+      background-color: $primary-bg-color;
+    }
   }
 
   &-header,
