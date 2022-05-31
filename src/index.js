@@ -129,7 +129,7 @@ function initSelectedTable(options, rows = []) {
   if (!selectedTable) {
     selectedTable = vnode;
   }
-  return vnode;
+  // return vnode;
 }
 
 function initTable(options, rows = []) {
@@ -180,7 +180,7 @@ function initTableRow(options, row) {
 
 function searchDone(options, data = {}) {
   const { rows } = data;
-  const newVnode = initTable(options, rows);
+  const newVnode = initDataTable(options, rows);
   dataTable = patch(dataTable, newVnode);
 }
 
