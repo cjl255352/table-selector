@@ -14,6 +14,7 @@ import "@/style/index.scss";
 let wrapper;
 let dialog;
 let dataTable;
+let selectedTable;
 
 function initWrapper(options, status = "enter") {
   const vnode = (
@@ -37,12 +38,15 @@ function initDialog(options, status = "enter") {
         [`${options.classPrefix}-dialog-enter`]: status == "enter",
         [`${options.classPrefix}-dialog-leave`]: status == "leave",
       }}
-      style={{ height: options.height, width: options.width }}
+      style={{
+        height: formatSize(options.height),
+        width: formatSize(options.width),
+      }}
     >
       {initHeader(options)}
       {initSearch(options)}
       <div class={{ [`${options.classPrefix}-body`]: true }}>
-        {initTable(options)}
+        {initDataTable(options)}
         {initSelectedTable(options)}
       </div>
     </div>
@@ -83,8 +87,13 @@ function initSearch(options) {
         class={{ [`${options.classPrefix}-search-btn`]: true }}
         on={{
           click: () => {
-            if (options.searchMethod && typeof options.searchMethod == "function") {
-              options.searchMethod(keyword, (data) => searchDone(options, data));
+            if (
+              options.searchMethod &&
+              typeof options.searchMethod == "function"
+            ) {
+              options.searchMethod(keyword, (data) =>
+                searchDone(options, data)
+              );
             }
           },
         }}
@@ -96,9 +105,36 @@ function initSearch(options) {
   return vnode;
 }
 
+function initDataTable(options, rows = []) {
+  const vnode = h(
+    "div",
+    {
+      class: { [`${options.classPrefix}-table`]: true },
+      style: { width: formatSize(options.dataTableWidth) },
+    },
+    initTable(options, rows)
+  );
+  if (!dataTable) {
+    dataTable = vnode;
+  }
+  return vnode;
+}
+
+function initSelectedTable(options, rows = []) {
+  const vnode = h(
+    "div",
+    { class: { [`${options.classPrefix}-table`]: true } },
+    initTable(options, rows)
+  );
+  if (!selectedTable) {
+    selectedTable = vnode;
+  }
+  return vnode;
+}
+
 function initTable(options, rows = []) {
-  const children = [];
-  children.push(
+  const table = [];
+  table.push(
     h(
       "div",
       {
@@ -115,41 +151,9 @@ function initTable(options, rows = []) {
       ))
     )
   );
-  rows.map((row) => children.push(initTableRow(options, row)));
-
-  children.push(
-    <div class={{ [`${options.classPrefix}-table-empty`]: true }} />
-  );
-
-  const vnode = h(
-    "div",
-    {
-      class: { [`${options.classPrefix}-table`]: true },
-      style: { width: formatSize(options.dataTableWidth) },
-    },
-    children
-  );
-  if (!dataTable) {
-    dataTable = vnode;
-  }
-  return vnode;
-}
-
-function initTableHeader(options) {
-  const vnode = (
-    <div class={{ [`${options.classPrefix}-table-header-wrapper`]: true }}>
-      {h(
-        "table",
-        {
-          class: { [`${options.classPrefix}-table-header`]: true },
-        },
-        options.columns.map((e) => (
-          <th style={{ textAlign: e.align, width: e.width }}>{e.label}</th>
-        ))
-      )}
-    </div>
-  );
-  return vnode;
+  rows.map((row) => table.push(initTableRow(options, row)));
+  table.push(<div class={{ [`${options.classPrefix}-table-empty`]: true }} />);
+  return table;
 }
 
 function initTableRow(options, row) {
@@ -172,43 +176,6 @@ function initTableRow(options, row) {
     ))
   );
   return vnode;
-}
-
-function initTableBody(options, rows) {
-  const vnode = (
-    <div class={{ [`${options.classPrefix}-table-body-wrapper`]: true }}>
-      {h(
-        "table",
-        {
-          class: { [`${options.classPrefix}-table-body`]: true },
-        },
-        rows.map((row) => initTableRow(options, row))
-      )}
-    </div>
-  );
-  return vnode;
-}
-
-function initDataTable(options, rows = []) {
-  const vnode = (
-    <div
-      class={{ [`${options.classPrefix}-table`]: true }}
-      style={{ width: formatSize(options.dataTableWidth) }}
-    >
-      {initTableHeader(options)}
-      {initTableBody(options, rows)}
-    </div>
-  );
-  if (!dataTable) {
-    dataTable = vnode;
-  }
-  return vnode;
-}
-
-console.log(initDataTable);
-
-function initSelectedTable(options) {
-  console.log(options);
 }
 
 function searchDone(options, data = {}) {
