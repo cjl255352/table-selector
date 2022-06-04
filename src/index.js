@@ -197,20 +197,6 @@ function initTableRow(options, columns, row, rowClick) {
   return vnode;
 }
 
-function rowClick(row, rowVnode, options, columns) {
-  row.$selected = !row.$selected;
-  const i = options.value.findIndex((e) => {
-    return e[options.valueProp] == row[options.valueProp];
-  });
-  if (row.$selected) {
-    i < 0 && options.value.push(row);
-  } else {
-    i > -1 && options.value.splice(i, 1);
-  }
-  patch(rowVnode, initTableRow(options, columns, row, rowClick));
-  selectedTable = patch(selectedTable, initSelectedTable(options));
-}
-
 function initClearBtn(options, rows) {
   return (
     <div class={{ [`${options.classPrefix}-selected-header`]: true }}>
@@ -238,6 +224,20 @@ function initClearBtn(options, rows) {
       </div>
     </div>
   );
+}
+
+function rowClick(row, rowVnode, options, columns) {
+  row.$selected = !row.$selected;
+  const i = options.value.findIndex((e) => {
+    return e[options.valueProp] == row[options.valueProp];
+  });
+  if (row.$selected) {
+    i < 0 && options.value.push(row);
+  } else {
+    i > -1 && options.value.splice(i, 1);
+  }
+  patch(rowVnode, initTableRow(options, columns, row, rowClick));
+  selectedTable = patch(selectedTable, initSelectedTable(options));
 }
 
 function searchDone(options, data = {}) {
