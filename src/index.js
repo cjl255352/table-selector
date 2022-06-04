@@ -233,15 +233,14 @@ function initClearBtn(options) {
               .slice(1, dataTable.children.length - 1)
               .forEach((e, i) => {
                 if (sourceData.rows[i].$selected) {
-                  // sourceData.rows[i].$selected = false;
-                  // e.elm.className = e.elm.className.replace(
-                  //   `${options.classPrefix}-table-row-selected`,
-                  //   ""
-                  // );
-                  rowClick(sourceData.rows[i], e, options, options.columns);
+                  sourceData.rows[i].$selected = false;
+                  e.elm.className = e.elm.className.replace(
+                    `${options.classPrefix}-table-row-selected`,
+                    ""
+                  );
                 }
               });
-            // searchDone(options);
+            searchDone(options);
           },
         }}
       >
