@@ -115,7 +115,7 @@ function rowClick(row, rowVnode, options, columns) {
     index > -1 && options.value.splice(index, 1);
   }
   patch(rowVnode, initTableRow(options, columns, row, rowClick));
-  patch(selectedTable, initSelectedTable(options));
+  selectedTable = patch(selectedTable, initSelectedTable(options));
 }
 
 function initDataTable(options, rows = []) {
