@@ -148,6 +148,7 @@ $border-color: #eaeaea;
 
   &-header > &-cell {
     border-top: 1px solid $border-color;
+    font-weight: bold;
   }
 
   &-row {
