@@ -132,7 +132,7 @@ function initSelectedTable(options) {
       options,
       [
         {
-          label: initClearBtn(options, options.value),
+          label: initClearBtn(options),
           prop: options.labelProp,
           width: "100%",
         },
@@ -202,26 +202,29 @@ function initTableRow(options, columns, row, rowClick) {
   return vnode;
 }
 
-function initClearBtn(options, rows) {
-  return (
+function initClearBtn(options) {
+  const vnode = (
     <div class={{ [`${options.classPrefix}-selected-label`]: true }}>
-      <span>已选择{`（${rows.length}）`}</span>
+      <span>已选择{`（${options.value.length}）`}</span>
       <div
         class={{ [`${options.classPrefix}-selected-label-clear-btn`]: true }}
         on={{
           click: () => {
-            options.value.forEach((e) => (e.$selected = false));
             options.value = [];
-            selectedTable = patch(selectedTable, initSelectedTable(options));
-            dataTable.children
-              .slice(1, dataTable.children.length - 1)
-              .forEach((e) => {
-                e.key.$selected = false;
-                patch(
-                  e,
-                  initTableRow(options, options.columns, e.key, rowClick)
-                );
-              });
+            selectedTable.children
+              .slice(1, selectedTable.children.length - 1)
+              .forEach((e) => destroy(e));
+            patch(vnode, initClearBtn(options));
+            // console.log(newVnode.removeChild)
+            // dataTable.children
+            //   .slice(1, dataTable.children.length - 1)
+            //   .forEach((e) => {
+            //     e.key.$selected = false;
+            //     patch(
+            //       e,
+            //       initTableRow(options, options.columns, e.key, rowClick)
+            //     );
+            //   });
           },
         }}
       >
@@ -229,6 +232,7 @@ function initClearBtn(options, rows) {
       </div>
     </div>
   );
+  return vnode;
 }
 
 function rowClick(row, rowVnode, options, columns) {
