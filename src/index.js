@@ -18,6 +18,12 @@ let dialog;
 let dataTable;
 let selectedTable;
 
+const params = {
+  keyword: "",
+  pageNo: 1,
+  pageSize: 10,
+};
+
 function initWrapper(options, status = "enter") {
   const vnode = (
     <div
@@ -77,20 +83,19 @@ function initHeader(options) {
 }
 
 function initSearch(options) {
-  let keyword = "";
   const vnode = (
     <div class={{ [`${options.classPrefix}-search`]: true }}>
       <input
         class={{ [`${options.classPrefix}-search-keyword`]: true }}
         props={{ placeholder: options.searchPlaceholder }}
-        on={{ input: (e) => (keyword = e.target.value) }}
+        on={{ input: (e) => (params.keyword = e.target.value) }}
       />
       <div
         class={{ [`${options.classPrefix}-search-btn`]: true }}
         on={{
           click: () => {
             if (isFunction(options.searchMethod)) {
-              options.searchMethod(keyword, (data) => {
+              options.searchMethod(params, (data) => {
                 searchDone(options, data);
               });
             }
@@ -265,6 +270,9 @@ function open(options) {
 function close(options) {
   destroy(patch(wrapper, initWrapper(options, "leave")), 200);
   destroy(patch(dialog, initDialog(options, "leave")), 300);
+  params.keyword = "";
+  params.pageNo = 1;
+  params.pageSize = 10;
   dataTable = undefined;
   selectedTable = undefined;
 }
