@@ -1,5 +1,5 @@
-function mock(keyword, done) {
-  console.log(`搜索关键字：${keyword}`);
+function mock(params, done) {
+  console.log(`搜索关键字：`, params);
   setTimeout(() => {
     done({
       rows: [
