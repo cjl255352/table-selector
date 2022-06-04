@@ -220,16 +220,7 @@ function initClearBtn(options) {
               .slice(1, selectedTable.children.length - 1)
               .forEach((e) => destroy(e));
             patch(vnode, initClearBtn(options));
-            // console.log(newVnode.removeChild)
-            // dataTable.children
-            //   .slice(1, dataTable.children.length - 1)
-            //   .forEach((e) => {
-            //     e.key.$selected = false;
-            //     patch(
-            //       e,
-            //       initTableRow(options, options.columns, e.key, rowClick)
-            //     );
-            //   });
+            searchDone(options);
           },
         }}
       >
