@@ -160,9 +160,9 @@ function initTable(options, columns, rows = [], rowClick) {
       ))
     )
   );
-  rows.forEach((row) =>
-    table.push(initTableRow(options, columns, row, rowClick))
-  );
+  rows.forEach((row) => {
+    table.push(initTableRow(options, columns, row, rowClick));
+  });
   table.push(<div class={{ [`${options.classPrefix}-table-empty`]: true }} />);
   return table;
 }
@@ -171,7 +171,6 @@ function initTableRow(options, columns, row, rowClick) {
   const vnode = h(
     "div",
     {
-      key: row,
       class: {
         [`${options.classPrefix}-table-row`]: true,
         [`${options.classPrefix}-table-row-selected`]:
@@ -211,6 +210,7 @@ function rowClick(row, rowVnode, options, columns) {
   patch(rowVnode, initTableRow(options, columns, row, rowClick));
   selectedTable = patch(selectedTable, initSelectedTable(options));
 }
+
 function initClearBtn(options, rows) {
   return (
     <div class={{ [`${options.classPrefix}-selected-header`]: true }}>
