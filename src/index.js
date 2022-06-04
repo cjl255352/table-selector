@@ -118,6 +118,7 @@ function initDataTable(options, rows = []) {
   const vnode = h(
     "div",
     {
+      key: "data",
       class: { [`${options.classPrefix}-table`]: true },
       style: { width: formatSize(options.dataTableWidth) },
     },
@@ -132,7 +133,11 @@ function initDataTable(options, rows = []) {
 function initSelectedTable(options) {
   const vnode = h(
     "div",
-    { class: { [`${options.classPrefix}-table`]: true }, style: { flex: 1 } },
+    {
+      key: "selected",
+      class: { [`${options.classPrefix}-table`]: true },
+      style: { flex: 1 },
+    },
     initTable(
       options,
       [
@@ -157,6 +162,7 @@ function initTable(options, columns, rows = [], rowClick) {
     h(
       "div",
       {
+        key: rowClick ? "data-header" : "selected-header",
         class: { [`${options.classPrefix}-table-header`]: true },
         style: { height: formatSize(options.tableRowHeight) },
       },
@@ -173,7 +179,12 @@ function initTable(options, columns, rows = [], rowClick) {
   rows.forEach((row) => {
     table.push(initTableRow(options, columns, row, rowClick));
   });
-  table.push(<div class={{ [`${options.classPrefix}-table-empty`]: true }} />);
+  table.push(
+    h("div", {
+      key: rowClick ? "data-empty" : "selected-empty",
+      class: { [`${options.classPrefix}-table-empty`]: true },
+    })
+  );
   return table;
 }
 
@@ -217,11 +228,20 @@ function initClearBtn(options) {
         on={{
           click: () => {
             options.value = [];
-            selectedTable.children
-              .slice(1, selectedTable.children.length - 1)
-              .forEach((e) => destroy(e));
-            patch(vnode, initClearBtn(options));
-            searchDone(options);
+            selectedTable = patch(selectedTable, initSelectedTable(options));
+            dataTable.children
+              .slice(1, dataTable.children.length - 1)
+              .forEach((e, i) => {
+                if (sourceData.rows[i].$selected) {
+                  // sourceData.rows[i].$selected = false;
+                  // e.elm.className = e.elm.className.replace(
+                  //   `${options.classPrefix}-table-row-selected`,
+                  //   ""
+                  // );
+                  rowClick(sourceData.rows[i], e, options, options.columns);
+                }
+              });
+            // searchDone(options);
           },
         }}
       >
