@@ -16,6 +16,7 @@ import "@/style/index.scss";
 let wrapper;
 let dialog;
 let dataTable;
+let sourceData;
 let selectedTable;
 
 function initWrapper(options, status = "enter") {
@@ -141,8 +142,10 @@ function initClearBtn(options, rows) {
         class={{ [`${options.classPrefix}-selected-header-clear`]: true }}
         on={{
           click: () => {
+            options.value.forEach((e) => (e.$selected = false));
             options.value = [];
-            patch(selectedTable, initSelectedTable(options));
+            selectedTable = patch(selectedTable, initSelectedTable(options));
+            searchDone(options, sourceData);
           },
         }}
       >
@@ -231,6 +234,7 @@ function initTableRow(options, columns, row, rowClick) {
 }
 
 function searchDone(options, data = {}) {
+  sourceData = data;
   const { rows } = data;
   const newVnode = initDataTable(options, rows);
   dataTable = patch(dataTable, newVnode);
