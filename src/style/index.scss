@@ -196,22 +196,19 @@ $border-color: #eaeaea;
   }
 }
 
-.#{$class-prefix}-selected-header {
+.#{$class-prefix}-selected-label {
   display: flex;
   justify-content: space-between;
   width: 100%;
 
-  &-clear {
+  &-clear-btn {
+    font-weight: normal;
     cursor: pointer;
     color: #cf261c;
   }
 }
 
 ////////////////////////////////
-
-.flow-select-transfer {
-  padding: 0 10px;
-}
 
 // 动画
 
