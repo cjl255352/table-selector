@@ -248,14 +248,12 @@ function rowClick(row, rowVnode, options, columns) {
 function searchDone(options, data = {}) {
   const { rows } = data;
   rows.forEach((e) => {
-    if (
-      options.value.find((f) => f[options.valueProp] == e[options.valueProp])
-    ) {
-      e.$selected = true;
-    }
+    const isExist = options.value.find((f) => {
+      return f[options.valueProp] == e[options.valueProp];
+    });
+    isExist && (e.$selected = true);
   });
-  const newVnode = initDataTable(options, rows);
-  dataTable = patch(dataTable, newVnode);
+  dataTable = patch(dataTable, initDataTable(options, rows));
 }
 
 function open(options) {
