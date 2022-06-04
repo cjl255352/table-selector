@@ -206,7 +206,8 @@ function initTableRow(options, columns, row, rowClick) {
     {
       class: {
         [`${options.classPrefix}-table-row`]: true,
-        [`${options.classPrefix}-table-row-selected`]: row.$selected,
+        [`${options.classPrefix}-table-row-selected`]:
+          rowClick && row.$selected,
       },
       style: { height: formatSize(options.tableRowHeight) },
       on: {
