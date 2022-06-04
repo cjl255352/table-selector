@@ -17,7 +17,9 @@ function insertBefore(parentNode, newNode, referenceNode) {
     parentNode.insertBefore(newNode, referenceNode);
 }
 function removeChild(node, child) {
-    node.removeChild(child);
+  if (child.parentNode) {
+    child.parentNode.removeChild(child);
+  }
 }
 function appendChild(node, child) {
     node.appendChild(child);
