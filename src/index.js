@@ -93,9 +93,9 @@ function initSearch(options) {
         on={{
           click: () => {
             if (isFunction(options.searchMethod)) {
-              options.searchMethod(keyword, (data) =>
-                searchDone(options, data)
-              );
+              options.searchMethod(keyword, (data) => {
+                searchDone(options, data);
+              });
             }
           },
         }}
