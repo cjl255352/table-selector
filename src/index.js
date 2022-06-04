@@ -16,9 +16,6 @@ import "@/style/index.scss";
 let wrapper;
 let dialog;
 let dataTable;
-let sourceData = {
-  rows: [],
-};
 let selectedTable;
 
 function initWrapper(options, status = "enter") {
@@ -109,13 +106,13 @@ function initSearch(options) {
 
 function rowClick(row, rowVnode, options, columns) {
   row.$selected = !row.$selected;
-  const index = options.value.findIndex(
+  const i = options.value.findIndex(
     (e) => e[options.valueProp] == row[options.valueProp]
   );
   if (row.$selected) {
-    index < 0 && options.value.push(row);
+    i < 0 && options.value.push(row);
   } else {
-    index > -1 && options.value.splice(index, 1);
+    i > -1 && options.value.splice(i, 1);
   }
   patch(rowVnode, initTableRow(options, columns, row, rowClick));
   selectedTable = patch(selectedTable, initSelectedTable(options));
@@ -145,10 +142,17 @@ function initClearBtn(options, rows) {
         on={{
           click: () => {
             options.value.forEach((e) => (e.$selected = false));
-            sourceData.rows.forEach((e) => (e.$selected = false));
             options.value = [];
             selectedTable = patch(selectedTable, initSelectedTable(options));
-            searchDone(options, sourceData);
+            dataTable.children
+              .slice(1, dataTable.children.length - 1)
+              .forEach((e) => {
+                e.key.$selected = false;
+                patch(
+                  e,
+                  initTableRow(options, options.columns, e.key, rowClick)
+                );
+              });
           },
         }}
       >
@@ -210,6 +214,7 @@ function initTableRow(options, columns, row, rowClick) {
   const vnode = h(
     "div",
     {
+      key: row,
       class: {
         [`${options.classPrefix}-table-row`]: true,
         [`${options.classPrefix}-table-row-selected`]:
@@ -237,7 +242,6 @@ function initTableRow(options, columns, row, rowClick) {
 }
 
 function searchDone(options, data = {}) {
-  sourceData = data;
   const { rows } = data;
   rows.forEach((e) => {
     if (
@@ -263,6 +267,7 @@ function close(options) {
   destroy(patch(wrapper, initWrapper(options, "leave")), 200);
   destroy(patch(dialog, initDialog(options, "leave")), 300);
   dataTable = undefined;
+  selectedTable = undefined;
 }
 
 export { open, close };
