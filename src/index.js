@@ -181,6 +181,7 @@ function initTableRow(options, columns, row, rowClick) {
   const vnode = h(
     "div",
     {
+      key: (rowClick ? "data" : "selected") + row[options.valueProp],
       class: {
         [`${options.classPrefix}-table-row`]: true,
         [`${options.classPrefix}-table-row-selected`]:
