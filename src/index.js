@@ -268,11 +268,11 @@ function open(options) {
 function close(options) {
   destroy(patch(wrapper, initWrapper(options, "leave")), 200);
   destroy(patch(dialog, initDialog(options, "leave")), 300);
+  dataTable = undefined;
+  selectedTable = undefined;
   params.keyword = "";
   params.pageNo = 1;
   params.pageSize = 10;
-  dataTable = undefined;
-  selectedTable = undefined;
 }
 
 export { open, close };
