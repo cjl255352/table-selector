@@ -106,7 +106,16 @@ function initSearch(options) {
 
 function rowClick(row, rowVnode, options, columns) {
   row.$selected = !row.$selected;
+  const index = options.value.findIndex(
+    (e) => e[options.valueProp] == row[options.valueProp]
+  );
+  if (row.$selected) {
+    index < 0 && options.value.push(row);
+  } else {
+    index > -1 && options.value.splice(index, 1);
+  }
   patch(rowVnode, initTableRow(options, columns, row, rowClick));
+  patch(selectedTable, initSelectedTable(options));
 }
 
 function initDataTable(options, rows = []) {
@@ -132,7 +141,8 @@ function initClearBtn(options, rows) {
         class={{ [`${options.classPrefix}-selected-header-clear`]: true }}
         on={{
           click: () => {
-            patch(selectedTable, initSelectedTable(options, []));
+            options.value = [];
+            patch(selectedTable, initSelectedTable(options));
           },
         }}
       >
@@ -142,14 +152,20 @@ function initClearBtn(options, rows) {
   );
 }
 
-function initSelectedTable(options, rows = []) {
+function initSelectedTable(options) {
   const vnode = h(
     "div",
     { class: { [`${options.classPrefix}-table`]: true }, style: { flex: 1 } },
     initTable(
       options,
-      [{ label: initClearBtn(options, rows), prop: "id", width: "100%" }],
-      rows
+      [
+        {
+          label: initClearBtn(options, options.value),
+          prop: options.labelProp,
+          width: "100%",
+        },
+      ],
+      options.value
     )
   );
   if (!selectedTable) {
