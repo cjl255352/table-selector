@@ -18,6 +18,10 @@ let dialog;
 let dataTable;
 let selectedTable;
 
+let sourceData = {
+  rows: [],
+};
+
 const params = {
   keyword: "",
   pageNo: 1,
@@ -96,7 +100,8 @@ function initSearch(options) {
           click: () => {
             if (isFunction(options.searchMethod)) {
               options.searchMethod(params, (data) => {
-                searchDone(options, data);
+                sourceData = data;
+                searchDone(options);
               });
             }
           },
@@ -249,13 +254,13 @@ function rowClick(row, rowVnode, options, columns) {
   selectedTable = patch(selectedTable, initSelectedTable(options));
 }
 
-function searchDone(options, data = {}) {
-  const { rows } = data;
+function searchDone(options) {
+  const { rows } = sourceData;
   rows.forEach((e) => {
     const isExist = options.value.find((f) => {
       return f[options.valueProp] == e[options.valueProp];
     });
-    isExist && (e.$selected = true);
+    e.$selected = !!isExist;
   });
   dataTable = patch(dataTable, initDataTable(options, rows));
 }
