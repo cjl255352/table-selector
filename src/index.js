@@ -104,20 +104,6 @@ function initSearch(options) {
   return vnode;
 }
 
-function rowClick(row, rowVnode, options, columns) {
-  row.$selected = !row.$selected;
-  const i = options.value.findIndex((e) => {
-    return e[options.valueProp] == row[options.valueProp];
-  });
-  if (row.$selected) {
-    i < 0 && options.value.push(row);
-  } else {
-    i > -1 && options.value.splice(i, 1);
-  }
-  patch(rowVnode, initTableRow(options, columns, row, rowClick));
-  selectedTable = patch(selectedTable, initSelectedTable(options));
-}
-
 function initDataTable(options, rows = []) {
   const vnode = h(
     "div",
@@ -131,35 +117,6 @@ function initDataTable(options, rows = []) {
     dataTable = vnode;
   }
   return vnode;
-}
-
-function initClearBtn(options, rows) {
-  return (
-    <div class={{ [`${options.classPrefix}-selected-header`]: true }}>
-      <span>已选择{`（${rows.length}）`}</span>
-      <div
-        class={{ [`${options.classPrefix}-selected-header-clear`]: true }}
-        on={{
-          click: () => {
-            options.value.forEach((e) => (e.$selected = false));
-            options.value = [];
-            selectedTable = patch(selectedTable, initSelectedTable(options));
-            dataTable.children
-              .slice(1, dataTable.children.length - 1)
-              .forEach((e) => {
-                e.key.$selected = false;
-                patch(
-                  e,
-                  initTableRow(options, options.columns, e.key, rowClick)
-                );
-              });
-          },
-        }}
-      >
-        清空
-      </div>
-    </div>
-  );
 }
 
 function initSelectedTable(options) {
@@ -239,6 +196,48 @@ function initTableRow(options, columns, row, rowClick) {
     ))
   );
   return vnode;
+}
+
+function rowClick(row, rowVnode, options, columns) {
+  row.$selected = !row.$selected;
+  const i = options.value.findIndex((e) => {
+    return e[options.valueProp] == row[options.valueProp];
+  });
+  if (row.$selected) {
+    i < 0 && options.value.push(row);
+  } else {
+    i > -1 && options.value.splice(i, 1);
+  }
+  patch(rowVnode, initTableRow(options, columns, row, rowClick));
+  selectedTable = patch(selectedTable, initSelectedTable(options));
+}
+function initClearBtn(options, rows) {
+  return (
+    <div class={{ [`${options.classPrefix}-selected-header`]: true }}>
+      <span>已选择{`（${rows.length}）`}</span>
+      <div
+        class={{ [`${options.classPrefix}-selected-header-clear`]: true }}
+        on={{
+          click: () => {
+            options.value.forEach((e) => (e.$selected = false));
+            options.value = [];
+            selectedTable = patch(selectedTable, initSelectedTable(options));
+            dataTable.children
+              .slice(1, dataTable.children.length - 1)
+              .forEach((e) => {
+                e.key.$selected = false;
+                patch(
+                  e,
+                  initTableRow(options, options.columns, e.key, rowClick)
+                );
+              });
+          },
+        }}
+      >
+        清空
+      </div>
+    </div>
+  );
 }
 
 function searchDone(options, data = {}) {
