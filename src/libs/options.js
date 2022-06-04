@@ -13,6 +13,9 @@ const defaultOptions = {
   tableRowHeight: 40,
   dataTableWidth: "66.6666%",
   columns: [],
+  value: [],
+  valueProp: "id",
+  labelProp: "name",
 };
 
 const defaultColumnOptions = {
