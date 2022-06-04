@@ -199,10 +199,10 @@ function initTableRow(options, columns, row, rowClick) {
 
 function initClearBtn(options, rows) {
   return (
-    <div class={{ [`${options.classPrefix}-selected-header`]: true }}>
+    <div class={{ [`${options.classPrefix}-selected-label`]: true }}>
       <span>已选择{`（${rows.length}）`}</span>
       <div
-        class={{ [`${options.classPrefix}-selected-header-clear`]: true }}
+        class={{ [`${options.classPrefix}-selected-label-clear-btn`]: true }}
         on={{
           click: () => {
             options.value.forEach((e) => (e.$selected = false));
