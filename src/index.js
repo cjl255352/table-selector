@@ -106,9 +106,9 @@ function initSearch(options) {
 
 function rowClick(row, rowVnode, options, columns) {
   row.$selected = !row.$selected;
-  const i = options.value.findIndex(
-    (e) => e[options.valueProp] == row[options.valueProp]
-  );
+  const i = options.value.findIndex((e) => {
+    return e[options.valueProp] == row[options.valueProp];
+  });
   if (row.$selected) {
     i < 0 && options.value.push(row);
   } else {
