@@ -324,7 +324,28 @@ function initPageBtn(options) {
 }
 
 function initAction(options) {
-  const vnode = <div class={{ [`${options.classPrefix}-action`]: true }}></div>;
+  const vnode = (
+    <div class={{ [`${options.classPrefix}-action`]: true }}>
+      <div
+        class={{ [`${options.classPrefix}-action-confirm-btn`]: true }}
+        on={{
+          click: () => {
+            if (isFunction(confirm)) {
+              confirm(options.value);
+            }
+          },
+        }}
+      >
+        确定
+      </div>
+      <div
+        class={{ [`${options.classPrefix}-action-cancel-btn`]: true }}
+        on={{ click: () => close(options) }}
+      >
+        取消
+      </div>
+    </div>
+  );
   return vnode;
 }
 
