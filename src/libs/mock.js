@@ -5,6 +5,7 @@ function mock(params, done) {
   setTimeout(() => {
     if (index % 2) {
       done({
+        total: 10,
         rows: [
           {
             $index: 1,
@@ -45,6 +46,7 @@ function mock(params, done) {
       });
     } else {
       done({
+        total: 10,
         rows: [
           {
             $index: 6,
