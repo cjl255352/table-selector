@@ -258,6 +258,35 @@ $border-color: #eaeaea;
   }
 }
 
+.#{$class-prefix}-action {
+  display: flex;
+
+  > div {
+    box-sizing: border-box;
+    height: 20px;
+    @include center;
+    border-radius: 3px;
+    border: 1px solid grey;
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px 10px;
+
+    &:last-child {
+      margin-right: none;
+    }
+  }
+
+  &-confirm-btn {
+    background-color: $primary-color;
+    color: #fff;
+  }
+
+  &-cancel-btn {
+    background-color: #fff;
+    color: grey;
+  }
+}
+
 ////////////////////////////////
 
 // 动画
