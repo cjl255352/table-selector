@@ -16,6 +16,9 @@ const defaultOptions = {
   value: [],
   valueProp: "id",
   labelProp: "name",
+  confirm: (value) => {
+    console.log(value);
+  },
 };
 
 const defaultColumnOptions = {
