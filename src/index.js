@@ -17,9 +17,11 @@ let wrapper;
 let dialog;
 let dataTable;
 let selectedTable;
+let pagination;
 
 let sourceData = {
   rows: [],
+  total: 0,
 };
 
 const params = {
@@ -61,6 +63,10 @@ function initDialog(options, status = "enter") {
         {initDataTable(options)}
         {initSelectedTable(options)}
       </div>
+      <div class={{ [`${options.classPrefix}-footer`]: true }}>
+        {initPagination(options)}
+        {initAction(options)}
+      </div>
     </div>
   );
   return vnode;
@@ -96,16 +102,7 @@ function initSearch(options) {
       />
       <div
         class={{ [`${options.classPrefix}-search-btn`]: true }}
-        on={{
-          click: () => {
-            if (isFunction(options.searchMethod)) {
-              options.searchMethod(params, (data) => {
-                sourceData = data;
-                searchDone(options);
-              });
-            }
-          },
-        }}
+        on={{ click: () => search(options) }}
       >
         {icon("search")}
       </div>
@@ -251,6 +248,86 @@ function initClearBtn(options) {
   return vnode;
 }
 
+function initPagination(options) {
+  console.log(params.pageNo, Math.ceil(sourceData.total / params.pageSize));
+  const vnode = (
+    <div class={{ [`${options.classPrefix}-pagination`]: true }}>
+      <span style={{ marginRight: "20px" }}>共{sourceData.total}条</span>
+      <div
+        class={{
+          [`${options.classPrefix}-pagination-up-btn`]: true,
+          [`${options.classPrefix}-pagination-btn-disabled`]:
+            params.pageNo == 1,
+        }}
+        on={{
+          click: () => {
+            params.pageNo -= 1;
+            search(options);
+          },
+        }}
+      >
+        {icon("left")}
+      </div>
+      {initPageBtn(options)}
+      <div
+        class={{
+          [`${options.classPrefix}-pagination-down-btn`]: true,
+          [`${options.classPrefix}-pagination-btn-disabled`]:
+            params.pageNo == Math.ceil(sourceData.total / params.pageSize),
+        }}
+        on={{
+          click: () => {
+            params.pageNo += 1;
+            search(options);
+          },
+        }}
+      >
+        {icon("right")}
+      </div>
+    </div>
+  );
+  if (!pagination) {
+    pagination = vnode;
+  }
+  return vnode;
+}
+
+function initPageBtn(options) {
+  const list = [];
+  const count = Math.ceil(sourceData.total / params.pageSize);
+  let i = 1;
+  while (i <= count) {
+    list.push(
+      h(
+        "div",
+        {
+          key: i,
+          class: {
+            [`${options.classPrefix}-pagination-num`]: true,
+            [`${options.classPrefix}-pagination-num-current`]:
+              params.pageNo == i,
+          },
+          dataset: { pageNo: i },
+          on: {
+            click: (e, v) => {
+              params.pageNo = v.key;
+              search(options);
+            },
+          },
+        },
+        i
+      )
+    );
+    i++;
+  }
+  return list;
+}
+
+function initAction(options) {
+  const vnode = <div class={{ [`${options.classPrefix}-action`]: true }}></div>;
+  return vnode;
+}
+
 function rowClick(row, rowVnode, options, columns) {
   row.$selected = !row.$selected;
   const i = options.value.findIndex((e) => {
@@ -265,6 +342,15 @@ function rowClick(row, rowVnode, options, columns) {
   selectedTable = patch(selectedTable, initSelectedTable(options));
 }
 
+function search(options) {
+  if (isFunction(options.searchMethod)) {
+    options.searchMethod(params, (data) => {
+      sourceData = data;
+      searchDone(options);
+    });
+  }
+}
+
 function searchDone(options) {
   const { rows } = sourceData;
   rows.forEach((e) => {
@@ -274,6 +360,7 @@ function searchDone(options) {
     e.$selected = !!isExist;
   });
   dataTable = patch(dataTable, initDataTable(options, rows));
+  pagination = patch(pagination, initPagination(options, rows));
 }
 
 function open(options) {
