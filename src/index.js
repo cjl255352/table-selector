@@ -26,7 +26,7 @@ let sourceData = {
 
 const params = {
   keyword: "",
-  pageNo: 1,
+  pageNumber: 1,
   pageSize: 10,
 };
 
@@ -249,7 +249,7 @@ function initClearBtn(options) {
 }
 
 function initPagination(options) {
-  console.log(params.pageNo, Math.ceil(sourceData.total / params.pageSize));
+  console.log(params.pageNumber, Math.ceil(sourceData.total / params.pageSize));
   const vnode = (
     <div class={{ [`${options.classPrefix}-pagination`]: true }}>
       <span style={{ marginRight: "20px" }}>共{sourceData.total}条</span>
@@ -257,11 +257,11 @@ function initPagination(options) {
         class={{
           [`${options.classPrefix}-pagination-up-btn`]: true,
           [`${options.classPrefix}-pagination-btn-disabled`]:
-            params.pageNo == 1,
+            params.pageNumber == 1,
         }}
         on={{
           click: () => {
-            params.pageNo -= 1;
+            params.pageNumber -= 1;
             search(options);
           },
         }}
@@ -273,11 +273,11 @@ function initPagination(options) {
         class={{
           [`${options.classPrefix}-pagination-down-btn`]: true,
           [`${options.classPrefix}-pagination-btn-disabled`]:
-            params.pageNo == Math.ceil(sourceData.total / params.pageSize),
+            params.pageNumber == Math.ceil(sourceData.total / params.pageSize),
         }}
         on={{
           click: () => {
-            params.pageNo += 1;
+            params.pageNumber += 1;
             search(options);
           },
         }}
@@ -305,12 +305,11 @@ function initPageBtn(options) {
           class: {
             [`${options.classPrefix}-pagination-num`]: true,
             [`${options.classPrefix}-pagination-num-current`]:
-              params.pageNo == i,
+              params.pageNumber == i,
           },
-          dataset: { pageNo: i },
           on: {
             click: (e, v) => {
-              params.pageNo = v.key;
+              params.pageNumber = v.key;
               search(options);
             },
           },
@@ -399,7 +398,7 @@ function close(options) {
   dataTable = undefined;
   selectedTable = undefined;
   params.keyword = "";
-  params.pageNo = 1;
+  params.pageNumber = 1;
   params.pageSize = 10;
 }
 
