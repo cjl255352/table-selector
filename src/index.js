@@ -402,6 +402,8 @@ function close(options) {
   params.keyword = "";
   params.pageNumber = 1;
   params.pageSize = 10;
+  sourceData.total = 0;
+  sourceData.rows = [];
 }
 
 export { open, close };
