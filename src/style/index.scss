@@ -270,7 +270,7 @@ $border-color: #e0e0e0;
 
   > div {
     @include center;
-    font-size: 12px;
+    font-size: 14px;
     height: 28px;
     width: 80px;
     box-sizing: border-box;
@@ -285,8 +285,8 @@ $border-color: #e0e0e0;
   }
 
   &-cancel-btn {
-    color: grey;
-    border: 1px solid #bbb;
+    color: #666;
+    border: 1px solid #d9d9d9;
   }
 }
 
