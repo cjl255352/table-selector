@@ -4,7 +4,7 @@ import { getScrollBarWidth } from "./utils";
 
 const defaultOptions = {
   classPrefix: "table-selector",
-  height: "",
+  height: 504,
   width: 760,
   title: "流程选择",
   titlePosition: "left",
