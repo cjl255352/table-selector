@@ -234,12 +234,11 @@ $border-color: #e0e0e0;
     @include center;
     height: 22px;
     width: 22px;
-    margin-right: 10px;
     border-radius: 4px;
     cursor: pointer;
 
     &-current {
-      background-color: $primary-bg-color;
+      background-color: #f6f6f6;
       color: $primary-color;
       cursor: none;
       pointer-events: none;
