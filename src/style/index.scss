@@ -5,10 +5,8 @@ $wrapper-bg-color: #000;
 $wrapper-opacity: 0.5;
 $dialog-bg-color: #fff;
 $dialog-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
-$padding-x: 16px;
-$padding-y: 10px;
-$margin-x: 16px;
-$margin-y: 10px;
+$pm-x: 16px;
+$pm-y: 10px;
 $primary-color: #cf261c;
 $primary-bg-color: rgba(207, 38, 28, 0.1);
 $border-color: #e0e0e0;
@@ -66,7 +64,7 @@ $border-color: #e0e0e0;
   align-items: center;
   justify-content: space-between;
   height: 40px;
-  padding: 0 $padding-x;
+  padding: 0 $pm-x;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
 
@@ -89,7 +87,7 @@ $border-color: #e0e0e0;
 .#{$class-prefix}-search {
   display: flex;
   align-items: center;
-  padding: 0 $padding-x;
+  padding: 0 $pm-x;
   margin-top: 10px;
   margin-bottom: 8px;
 
@@ -130,7 +128,7 @@ $border-color: #e0e0e0;
   display: flex;
   flex: 1;
   height: 0;
-  margin: 0 $margin-x 0 $margin-y;
+  margin: 0 $pm-x 0 $pm-y;
 }
 
 .#{$class-prefix}-table {
@@ -140,7 +138,7 @@ $border-color: #e0e0e0;
   overflow: auto;
 
   &:not(:last-child) {
-    margin-right: $margin-x;
+    margin-right: $pm-x;
   }
 
   &-header {
@@ -215,7 +213,7 @@ $border-color: #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: $margin-y $margin-x;
+  margin: $pm-y $pm-x;
 }
 
 .#{$class-prefix}-pagination {
