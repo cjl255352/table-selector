@@ -44,6 +44,7 @@ $border-color: #e0e0e0;
 }
 
 .#{$class-prefix}-dialog {
+  font-family: MicrosoftYaHei;
   margin: 15vh auto auto;
   display: flex;
   flex-direction: column;
@@ -61,27 +62,21 @@ $border-color: #e0e0e0;
 }
 
 .#{$class-prefix}-header {
-  position: relative;
-  padding: $padding-y $padding-x;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 $padding-x;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
 
-  $font-height: 20px;
-
   &-title {
-    display: inline-block;
-    font-family: MicrosoftYaHei;
     font-size: 14px;
-    line-height: $font-height;
   }
 
   &-close-btn {
-    font-size: $font-height;
-    color: #8a8a8a;
-    position: absolute;
-    top: 50%;
-    right: $padding-x;
-    transform: translate3d(0, -50%, 0);
+    font-size: 24px;
+    color: #999999;
     cursor: pointer;
     transition: color 0.3s;
 
