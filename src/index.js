@@ -336,13 +336,13 @@ function initAction(options) {
           },
         }}
       >
-        确定
+        确 定
       </div>
       <div
         class={{ [`${options.classPrefix}-action-cancel-btn`]: true }}
         on={{ click: () => close(options) }}
       >
-        取消
+        取 消
       </div>
     </div>
   );

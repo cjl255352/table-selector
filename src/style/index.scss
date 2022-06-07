@@ -7,8 +7,8 @@ $dialog-bg-color: #fff;
 $dialog-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
 $pm-x: 16px;
 $pm-y: 8px;
-$primary-color: #cf261c;
-$primary-bg-color: rgba(207, 38, 28, 0.1);
+$primary-color: #ca1d22;
+$primary-bg-color: #fef6f6;
 $border-color: #e0e0e0;
 
 @mixin center {
@@ -269,28 +269,24 @@ $border-color: #e0e0e0;
   display: flex;
 
   > div {
-    box-sizing: border-box;
-    height: 20px;
     @include center;
-    border-radius: 3px;
-    border: 1px solid grey;
+    font-size: 12px;
+    height: 28px;
+    width: 80px;
+    box-sizing: border-box;
+    border-radius: 4px;
     cursor: pointer;
-    margin-right: 10px;
-    padding: 5px 10px;
-
-    &:last-child {
-      margin-right: none;
-    }
   }
 
   &-confirm-btn {
     background-color: $primary-color;
     color: #fff;
+    margin-right: $pm-y;
   }
 
   &-cancel-btn {
-    background-color: #fff;
     color: grey;
+    border: 1px solid #bbb;
   }
 }
 
