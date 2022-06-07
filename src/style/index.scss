@@ -32,6 +32,7 @@ $border-color: #e0e0e0;
   opacity: $wrapper-opacity;
   background-color: $wrapper-bg-color;
 
+  /*
   &-enter {
     animation: wrapper-in 0.2s ease forwards;
   }
@@ -39,6 +40,7 @@ $border-color: #e0e0e0;
   &-leave {
     animation: wrapper-out 0.2s ease forwards;
   }
+  */
 }
 
 .#{$class-prefix}-dialog {
@@ -50,6 +52,7 @@ $border-color: #e0e0e0;
   background-color: $dialog-bg-color;
   box-shadow: $dialog-shadow;
 
+  /*
   &-enter {
     animation: dialog-in 0.3s forwards;
   }
@@ -57,6 +60,7 @@ $border-color: #e0e0e0;
   &-leave {
     animation: dialog-out 0.3s forwards;
   }
+  */
 }
 
 .#{$class-prefix}-header {
