@@ -224,16 +224,18 @@ $border-color: #e0e0e0;
   align-items: center;
   color: #333333;
 
+  $size: 22px;
+
   &-total {
     display: inline-block;
-    line-height: 22px;
-    // margin-right: 20px;
+    line-height: $size;
+    margin-right: 10px;
   }
 
   &-num {
     @include center;
-    height: 22px;
-    width: 22px;
+    height: $size;
+    width: $size;
     border-radius: 4px;
     cursor: pointer;
 
@@ -245,26 +247,26 @@ $border-color: #e0e0e0;
     }
   }
 
-  &-up-btn {
-    // margin-right: 10px;
-  }
-
   &-up-btn,
   &-down-btn {
-    cursor: pointer;
-    height: 20px;
-    width: 20px;
     @include center;
+    height: $size;
+    width: $size;
+    cursor: pointer;
 
     &:hover {
       color: $primary-color;
     }
   }
 
+  &-up-btn {
+    // margin-right: 10px;
+  }
+
   &-btn-disabled {
     cursor: none;
     pointer-events: none;
-    color: grey;
+    color: #999;
   }
 }
 
