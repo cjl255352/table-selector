@@ -4,14 +4,14 @@ import { getScrollBarWidth } from "./utils";
 
 const defaultOptions = {
   classPrefix: "table-selector",
-  height: 300,
-  width: 900,
+  height: "",
+  width: 760,
   title: "流程选择",
   titlePosition: "left",
   searchPlaceholder: "请输入关键字",
   searchMethod: mock,
-  tableRowHeight: 40,
-  dataTableWidth: "66.6666%",
+  tableRowHeight: 32,
+  dataTableWidth: 480,
   columns: [],
   value: [],
   valueProp: "id",
