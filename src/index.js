@@ -398,6 +398,7 @@ function close(options) {
   destroy(patch(dialog, initDialog(options, "leave")), 300);
   dataTable = undefined;
   selectedTable = undefined;
+  pagination = undefined;
   params.keyword = "";
   params.pageNumber = 1;
   params.pageSize = 10;
