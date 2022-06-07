@@ -89,13 +89,18 @@ $border-color: #e0e0e0;
 .#{$class-prefix}-search {
   display: flex;
   align-items: center;
-  padding: $padding-y $padding-x;
+  padding: 0 $padding-x;
+  margin-top: 10px;
+  margin-bottom: 8px;
 
-  $border: 1px solid #dcdfe6;
+  $border-color: #bbbbbb;
+  $border: 1px solid $border-color;
   $border-radius: 4px;
+  $height: 28px;
 
   &-keyword {
-    height: 30px;
+    font-size: 12px;
+    height: $height;
     padding: 0 10px;
     box-sizing: border-box;
     outline: none;
@@ -107,11 +112,11 @@ $border-color: #e0e0e0;
   }
 
   &-btn {
-    height: 30px;
-    width: 30px;
-    color: #909399;
-    background-color: #f5f7fa;
     @include center;
+    height: $height;
+    width: $height;
+    color: $border-color;
+    background-color: #f7f7f7;
     box-sizing: border-box;
     border-radius: $border-radius;
     border: $border;
