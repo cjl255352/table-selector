@@ -219,15 +219,19 @@ $border-color: #e0e0e0;
 }
 
 .#{$class-prefix}-pagination {
+  font-size: 12px;
   display: flex;
   align-items: center;
+  color: #333333;
 
   &-total {
-    margin-right: 20px;
+    display: inline-block;
+    line-height: 22px;
+    // margin-right: 20px;
   }
 
   &-up-btn {
-    margin-right: 10px;
+    // margin-right: 10px;
   }
 
   &-up-btn,
@@ -249,12 +253,12 @@ $border-color: #e0e0e0;
   }
 
   &-num {
-    cursor: pointer;
-    height: 20px;
-    width: 20px;
+    @include center;
+    height: 22px;
+    width: 22px;
     margin-right: 10px;
-    border-radius: 3px;
-    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
 
     &-current {
       background-color: $primary-bg-color;
