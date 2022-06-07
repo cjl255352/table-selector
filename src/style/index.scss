@@ -215,7 +215,7 @@ $border-color: #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: $pm-y $pm-x;
+  margin: $pm-x;
 }
 
 .#{$class-prefix}-pagination {
