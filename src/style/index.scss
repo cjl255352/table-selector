@@ -230,6 +230,22 @@ $border-color: #e0e0e0;
     // margin-right: 20px;
   }
 
+  &-num {
+    @include center;
+    height: 22px;
+    width: 22px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &-current {
+      background-color: $primary-bg-color;
+      color: $primary-color;
+      cursor: none;
+      pointer-events: none;
+    }
+  }
+
   &-up-btn {
     // margin-right: 10px;
   }
@@ -250,22 +266,6 @@ $border-color: #e0e0e0;
     cursor: none;
     pointer-events: none;
     color: grey;
-  }
-
-  &-num {
-    @include center;
-    height: 22px;
-    width: 22px;
-    margin-right: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &-current {
-      background-color: $primary-bg-color;
-      color: $primary-color;
-      cursor: none;
-      pointer-events: none;
-    }
   }
 }
 
