@@ -6,7 +6,7 @@ $wrapper-opacity: 0.5;
 $dialog-bg-color: #fff;
 $dialog-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
 $pm-x: 16px;
-$pm-y: 10px;
+$pm-y: 8px;
 $primary-color: #cf261c;
 $primary-bg-color: rgba(207, 38, 28, 0.1);
 $border-color: #e0e0e0;
@@ -87,9 +87,7 @@ $border-color: #e0e0e0;
 .#{$class-prefix}-search {
   display: flex;
   align-items: center;
-  padding: 0 $pm-x;
-  margin-top: 10px;
-  margin-bottom: 8px;
+  padding: $pm-x $pm-x $pm-y;
 
   $border-color: #bbbbbb;
   $border: 1px solid $border-color;
@@ -99,6 +97,7 @@ $border-color: #e0e0e0;
   &-keyword {
     font-size: 12px;
     height: $height;
+    width: calc(280px - $height);
     padding: 0 10px;
     box-sizing: border-box;
     outline: none;
