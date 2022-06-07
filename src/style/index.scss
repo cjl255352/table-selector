@@ -31,6 +31,7 @@ $border-color: #e0e0e0;
   width: 100%;
   opacity: $wrapper-opacity;
   background-color: $wrapper-bg-color;
+  z-index: 9999;
 
   /*
   &-enter {
@@ -45,12 +46,14 @@ $border-color: #e0e0e0;
 
 .#{$class-prefix}-dialog {
   font-family: MicrosoftYaHei;
-  margin: 15vh auto auto;
+  position: relative;
   display: flex;
   flex-direction: column;
+  margin: 15vh auto auto;
   box-sizing: border-box;
   background-color: $dialog-bg-color;
   box-shadow: $dialog-shadow;
+  z-index: 10000;
 
   /*
   &-enter {
