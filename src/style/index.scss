@@ -127,23 +127,26 @@ $border-color: #e0e0e0;
   display: flex;
   flex: 1;
   height: 0;
-  margin: 0 $pm-x 0 $pm-y;
+  margin: 0 $pm-x;
 }
 
 .#{$class-prefix}-table {
+  font-size: 12px;
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: auto;
 
+  $hover-bg-color: #f3f5f7;
+
   &:not(:last-child) {
-    margin-right: $pm-x;
+    margin-right: $pm-y;
   }
 
   &-header {
     position: sticky;
     top: 0;
-    background-color: #fff;
+    background-color: $hover-bg-color;
   }
 
   &-header > &-cell {
@@ -153,7 +156,7 @@ $border-color: #e0e0e0;
 
   &-row {
     &:hover {
-      background-color: #909399;
+      background-color: $hover-bg-color;
     }
 
     &-selected {
@@ -204,7 +207,7 @@ $border-color: #e0e0e0;
   &-clear-btn {
     font-weight: normal;
     cursor: pointer;
-    color: #cf261c;
+    color: #1585ff;
   }
 }
 
