@@ -260,7 +260,11 @@ $border-color: #e0e0e0;
   }
 
   &-up-btn {
-    // margin-right: 10px;
+    margin-right: 10px;
+  }
+
+  &-down-btn {
+    margin-left: 10px;
   }
 
   &-btn-disabled {
