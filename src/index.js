@@ -249,10 +249,11 @@ function initClearBtn(options) {
 }
 
 function initPagination(options) {
-  console.log(params.pageNumber, Math.ceil(sourceData.total / params.pageSize));
   const vnode = (
     <div class={{ [`${options.classPrefix}-pagination`]: true }}>
-      <span style={{ marginRight: "20px" }}>共{sourceData.total}条</span>
+      <span class={{ [`${options.classPrefix}-pagination-total`]: true }}>
+        共{sourceData.total}条
+      </span>
       <div
         class={{
           [`${options.classPrefix}-pagination-up-btn`]: true,
@@ -268,7 +269,7 @@ function initPagination(options) {
       >
         {icon("left")}
       </div>
-      {initPageBtn(options)}
+      {initPageNumber(options)}
       <div
         class={{
           [`${options.classPrefix}-pagination-down-btn`]: true,
@@ -292,7 +293,7 @@ function initPagination(options) {
   return vnode;
 }
 
-function initPageBtn(options) {
+function initPageNumber(options) {
   const list = [];
   const count = Math.ceil(sourceData.total / params.pageSize);
   let i = 1;

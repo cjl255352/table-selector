@@ -219,6 +219,10 @@ $border-color: #eaeaea;
   display: flex;
   align-items: center;
 
+  &-total {
+    margin-right: 20px;
+  }
+
   &-up-btn {
     margin-right: 10px;
   }
@@ -286,10 +290,6 @@ $border-color: #eaeaea;
     color: grey;
   }
 }
-
-////////////////////////////////
-
-// 动画
 
 @keyframes wrapper-in {
   0% {
