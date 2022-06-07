@@ -393,9 +393,12 @@ function open(options) {
   patch(dialogPoint, dialog);
 }
 
+// eslint-disable-next-line no-unused-vars
 function close(options) {
-  destroy(patch(wrapper, initWrapper(options, "leave")), 200);
-  destroy(patch(dialog, initDialog(options, "leave")), 300);
+  // destroy(patch(wrapper, initWrapper(options, "leave")), 200);
+  // destroy(patch(dialog, initDialog(options, "leave")), 300);
+  destroy(wrapper);
+  destroy(dialog);
   dataTable = undefined;
   selectedTable = undefined;
   pagination = undefined;
