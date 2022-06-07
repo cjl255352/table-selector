@@ -4,14 +4,14 @@ $class-prefix: "table-selector";
 $wrapper-bg-color: #000;
 $wrapper-opacity: 0.5;
 $dialog-bg-color: #fff;
-$dialog-shadow: 0 1px 3px rgb(0 0 0 / 30%);
+$dialog-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
 $padding-x: 14px;
 $padding-y: 10px;
 $margin-x: 14px;
 $margin-y: 10px;
 $primary-color: #cf261c;
 $primary-bg-color: rgba(207, 38, 28, 0.1);
-$border-color: #eaeaea;
+$border-color: #e0e0e0;
 
 @mixin center {
   display: flex;
@@ -47,7 +47,6 @@ $border-color: #eaeaea;
   margin: 15vh auto auto;
   display: flex;
   flex-direction: column;
-  border-radius: 2px;
   box-sizing: border-box;
   background-color: $dialog-bg-color;
   box-shadow: $dialog-shadow;
@@ -64,16 +63,20 @@ $border-color: #eaeaea;
 .#{$class-prefix}-header {
   position: relative;
   padding: $padding-y $padding-x;
+  box-sizing: border-box;
   border-bottom: 1px solid $border-color;
 
+  $font-height: 20px;
+
   &-title {
-    font-size: 18px;
-    line-height: 24px;
-    color: #303133;
+    display: inline-block;
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    line-height: $font-height;
   }
 
   &-close-btn {
-    font-size: 24px;
+    font-size: $font-height;
     color: #8a8a8a;
     position: absolute;
     top: 50%;
