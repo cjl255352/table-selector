@@ -330,8 +330,8 @@ function initAction(options) {
         class={{ [`${options.classPrefix}-action-confirm-btn`]: true }}
         on={{
           click: () => {
-            if (isFunction(confirm)) {
-              confirm(options.value, close);
+            if (isFunction(options.confirm)) {
+              options.confirm(options.value, close);
             }
           },
         }}
