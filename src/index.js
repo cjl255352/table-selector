@@ -331,7 +331,7 @@ function initAction(options) {
         on={{
           click: () => {
             if (isFunction(confirm)) {
-              confirm(options.value);
+              confirm(options.value, close);
             }
           },
         }}
