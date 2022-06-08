@@ -16,8 +16,9 @@ const defaultOptions = {
   value: [],
   valueProp: "id",
   labelProp: "name",
-  confirm: (value) => {
+  confirm: (value, close) => {
     console.log(value);
+    close();
   },
 };
 
