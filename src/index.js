@@ -209,7 +209,11 @@ function initTableRow(options, columns, row, rowClick) {
         class={{ [`${options.classPrefix}-table-cell`]: true }}
         style={{ justifyContent: column.align, width: column.width }}
       >
-        <span>{row[column.prop]}</span>
+        <span>
+          {isFunction(column.formatter)
+            ? column.formatter(row, column, row[column.prop], row.$index)
+            : row[column.prop]}
+        </span>
       </div>
     ))
   );
@@ -374,7 +378,8 @@ function search(options) {
 
 function searchDone(options) {
   const { rows } = sourceData;
-  rows.forEach((e) => {
+  rows.forEach((e, i) => {
+    e.$index = i;
     const isExist = options.value.find((f) => {
       return f[options.valueProp] == e[options.valueProp];
     });
