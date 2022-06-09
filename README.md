@@ -123,6 +123,8 @@ tableSelector.open(options);
 
 _对齐方式可选：**`left`**，**`center`**，**`right`**。_
 
+_没有设置列宽时会自动撑开，多个列均分。_
+
 ### `searchMethod` (必填，`function`)
 
 搜索方法。
