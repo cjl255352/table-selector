@@ -7,34 +7,6 @@
     <title>demo</title>
   </head>
   <body>
-    <script>
-      const options = {
-        columns: [
-          {
-            label: "序号",
-            prop: "$index",
-            width: 80,
-            headerAlign: "center",
-            align: "center",
-          },
-          {
-            label: "PDMC领域",
-            prop: "domain",
-            width: "150px",
-          },
-          {
-            label: "电子流名称",
-            prop: "name",
-          },
-          {
-            label: "电子流owner",
-            prop: "owner",
-            width: "130px",
-            headerAlign: "right",
-          },
-        ],
-      };
-    </script>
-    <button onclick="tableSelector.open(options)">打开流程选择</button>
+    <button onclick="tableSelector.open()">打开流程选择</button>
   </body>
 </html>
