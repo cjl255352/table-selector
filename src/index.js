@@ -46,26 +46,28 @@ function initWrapper(options, status = "enter") {
 
 function initDialog(options, status = "enter") {
   const vnode = (
-    <div
-      class={{
-        [`${options.classPrefix}-dialog`]: true,
-        [`${options.classPrefix}-dialog-enter`]: status == "enter",
-        [`${options.classPrefix}-dialog-leave`]: status == "leave",
-      }}
-      style={{
-        height: formatSize(options.height),
-        width: formatSize(options.width),
-      }}
-    >
-      {initHeader(options)}
-      {initSearch(options)}
-      <div class={{ [`${options.classPrefix}-body`]: true }}>
-        {initDataTable(options)}
-        {initSelectedTable(options)}
-      </div>
-      <div class={{ [`${options.classPrefix}-footer`]: true }}>
-        {initPagination(options)}
-        {initAction(options)}
+    <div class={{ [`${options.classPrefix}-dialog-wrapper`]: true }}>
+      <div
+        class={{
+          [`${options.classPrefix}-dialog`]: true,
+          [`${options.classPrefix}-dialog-enter`]: status == "enter",
+          [`${options.classPrefix}-dialog-leave`]: status == "leave",
+        }}
+        style={{
+          height: formatSize(options.height),
+          width: formatSize(options.width),
+        }}
+      >
+        {initHeader(options)}
+        {initSearch(options)}
+        <div class={{ [`${options.classPrefix}-body`]: true }}>
+          {initDataTable(options)}
+          {initSelectedTable(options)}
+        </div>
+        <div class={{ [`${options.classPrefix}-footer`]: true }}>
+          {initPagination(options)}
+          {initAction(options)}
+        </div>
       </div>
     </div>
   );
