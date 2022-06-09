@@ -12,14 +12,35 @@ const defaultOptions = {
   searchMethod: mock,
   tableRowHeight: 32,
   dataTableWidth: 480,
-  columns: [],
+  columns: [
+    {
+      label: "序号",
+      prop: "$index",
+      width: 60,
+      headerAlign: "center",
+      align: "center",
+      formatter: (row, column, cellValue, index) => {
+        return index + 1;
+      },
+    },
+    {
+      label: "PDMC领域",
+      prop: "domain",
+      width: 110,
+    },
+    {
+      label: "电子流名称",
+      prop: "name",
+    },
+    {
+      label: "电子流owner",
+      prop: "owner",
+      width: 100,
+    },
+  ],
   value: [],
   valueProp: "id",
   labelProp: "name",
-  confirm: (value, close) => {
-    console.log(value);
-    close();
-  },
 };
 
 const defaultColumnOptions = {
@@ -37,7 +58,7 @@ function formatSize(value) {
   return value;
 }
 
-function initColumns(columns, isScrollbar = false) {
+function initColumns(columns = [], isScrollbar = false) {
   const alignMap = {
     left: "flex-start",
     center: "center",
@@ -67,8 +88,9 @@ function initColumns(columns, isScrollbar = false) {
 }
 
 function initOptions(options = {}) {
+  options = Object.assign(cloneDeep(defaultOptions), options);
   initColumns(options.columns);
-  return Object.assign(cloneDeep(defaultOptions), options);
+  return options;
 }
 
 export {
