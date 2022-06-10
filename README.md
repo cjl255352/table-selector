@@ -106,16 +106,16 @@ tableSelector.open(options);
   },
   {
     label: "PDMC领域",
-    prop: "domain",
+    prop: "domainInfo",
     width: 110,
   },
   {
     label: "电子流名称",
-    prop: "name",
+    prop: "electronFlowName",
   },
   {
     label: "电子流owner",
-    prop: "owner",
+    prop: "ownerName",
     width: 100,
   },
 ];
@@ -137,7 +137,7 @@ function searchMethod(params, done) {
     url: "/user/12345",
     data: {
       // 模糊搜索文本
-      keyword: params.keyword,
+      searchKey: params.keyword,
       // 页码，从1开始
       pageNumber: params.pageNumber,
       // 分页大小，默认10

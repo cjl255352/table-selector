@@ -25,16 +25,16 @@ const defaultOptions = {
     },
     {
       label: "PDMC领域",
-      prop: "domain",
+      prop: "domainInfo",
       width: 110,
     },
     {
       label: "电子流名称",
-      prop: "name",
+      prop: "electronFlowName",
     },
     {
       label: "电子流owner",
-      prop: "owner",
+      prop: "ownerName",
       width: 100,
     },
   ],
