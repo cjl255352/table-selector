@@ -40,7 +40,7 @@ const defaultOptions = {
   ],
   value: [],
   valueProp: "id",
-  labelProp: "name",
+  labelProp: "electronFlowName",
 };
 
 const defaultColumnOptions = {

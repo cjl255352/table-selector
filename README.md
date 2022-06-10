@@ -76,7 +76,7 @@ tableSelector.open(options);
 
 右侧已选择表格的值的唯一字段的 key。
 
-### `labelProp` (可选，`string`，默认值`"name"`)
+### `labelProp` (可选，`string`，默认值`"electronFlowName"`)
 
 右侧已选择表格的值的显示字段的 key。
 
