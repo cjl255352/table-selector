@@ -312,6 +312,7 @@ function initPageNumber(options) {
             [`${options.classPrefix}-pagination-num`]: true,
             [`${options.classPrefix}-pagination-num-current`]:
               params.pageNumber == i,
+            "el-icon-": i == "left" || i == "right",
             [`${options.classPrefix}-pagination-left`]: i == "left",
             [`${options.classPrefix}-pagination-right`]: i == "right",
           },
