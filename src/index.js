@@ -301,9 +301,8 @@ function initPagination(options) {
 
 function initPageNumber(options) {
   const list = [];
-  const count = Math.ceil(sourceData.total / params.pageSize);
-  let i = 1;
-  while (i <= count) {
+  const arr = initPageArr(options);
+  arr.forEach((i) => {
     list.push(
       h(
         "div",
@@ -313,6 +312,8 @@ function initPageNumber(options) {
             [`${options.classPrefix}-pagination-num`]: true,
             [`${options.classPrefix}-pagination-num-current`]:
               params.pageNumber == i,
+            [`${options.classPrefix}-pagination-left`]: i == "left",
+            [`${options.classPrefix}-pagination-right`]: i == "right",
           },
           on: {
             click: (e, v) => {
@@ -324,9 +325,46 @@ function initPageNumber(options) {
         i
       )
     );
-    i++;
-  }
+  });
   return list;
+}
+
+function initPageArr(options) {
+  let arr = [];
+  let max = Math.ceil(sourceData.total / params.pageSize);
+  if (max > options.pageCount) {
+    let right = true;
+    arr.push(params.pageNumber);
+    let i = options.pageCount - 1;
+    while (i-- > 0) {
+      if (right) {
+        arr.push(arr[arr.length - 1] + 1);
+      } else {
+        arr.unshift(arr[0] - 1);
+      }
+      right = !right;
+    }
+    let diff = 0;
+    if (arr[0] < 1) {
+      diff = 1 - arr[0];
+    } else if (arr[arr.length - 1] > max) {
+      diff = arr[arr.length - 1] - max;
+    }
+    arr = arr.map((e) => e + diff);
+    if (arr[0] != 1) {
+      arr[0] = "left";
+      arr.unshift(1);
+    }
+    if (arr[arr.length - 1] != max) {
+      arr[arr.length - 1] = "right";
+      arr.push(max);
+    }
+  } else {
+    while (max > 0) {
+      arr.unshift(max--);
+    }
+  }
+  return arr;
 }
 
 function initAction(options) {
