@@ -318,7 +318,14 @@ function initPageNumber(options) {
           },
           on: {
             click: (e, v) => {
-              params.pageNumber = v.key;
+              if (v.key == "left") {
+                params.pageNumber = Math.max(1, params.pageNumber - 5);
+              } else if (v.key == "right") {
+                const max = Math.ceil(sourceData.total / params.pageSize);
+                params.pageNumber = Math.min(max, params.pageNumber + 5);
+              } else {
+                params.pageNumber = v.key;
+              }
               search(options);
             },
           },
