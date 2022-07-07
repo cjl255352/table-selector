@@ -322,7 +322,7 @@ function initPageNumber(options) {
             },
           },
         },
-        i
+        isNaN(i) ? "" : i
       )
     );
   });
