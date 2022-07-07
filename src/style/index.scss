@@ -291,6 +291,19 @@ $border-color: #e0e0e0;
     pointer-events: none;
     color: #999;
   }
+
+  &-left::before,
+  &-right::before {
+    content: "\e794";
+  }
+
+  &-left:hover::before {
+    content: "\e6dd";
+  }
+
+  &-right:hover::before {
+    content: "\e6dc";
+  }
 }
 
 .#{$class-prefix}-action {
