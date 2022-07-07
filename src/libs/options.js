@@ -12,6 +12,7 @@ const defaultOptions = {
   searchMethod: mock,
   tableRowHeight: 32,
   dataTableWidth: 480,
+  pageCount: 7,
   columns: [
     {
       label: "序号",

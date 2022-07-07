@@ -72,6 +72,10 @@ tableSelector.open(options);
 
 左侧数据表格的宽度。
 
+### `pageCount` (可选，`number`，默认值`7`)
+
+分页按钮最大显示数。
+
 ### `valueProp` (可选，`string`，默认值`"id"`)
 
 右侧已选择表格的值的唯一字段的 key。
