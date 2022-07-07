@@ -19,7 +19,7 @@ npm run build
 ### vue 项目
 
 ```js
-// main.js
+// 样式
 import "table-selector/dist/main.css";
 
 // 业务代码
