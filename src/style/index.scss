@@ -1,4 +1,5 @@
 @import "@/iconfont/index.css";
+@import "@/element/icon.css";
 
 $class-prefix: "table-selector";
 $wrapper-bg-color: #000;
@@ -44,6 +45,17 @@ $border-color: #e0e0e0;
   */
 }
 
+.#{$class-prefix}-dialog-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  z-index: 10000;
+  pointer-events: none;
+}
+
 .#{$class-prefix}-dialog {
   font-family: MicrosoftYaHei;
   position: relative;
@@ -53,7 +65,7 @@ $border-color: #e0e0e0;
   box-sizing: border-box;
   background-color: $dialog-bg-color;
   box-shadow: $dialog-shadow;
-  z-index: 10000;
+  pointer-events: auto;
 
   /*
   &-enter {
@@ -278,6 +290,19 @@ $border-color: #e0e0e0;
     cursor: none;
     pointer-events: none;
     color: #999;
+  }
+
+  &-left::before,
+  &-right::before {
+    content: "\e794";
+  }
+
+  &-left:hover::before {
+    content: "\e6dd";
+  }
+
+  &-right:hover::before {
+    content: "\e6dc";
   }
 }
 

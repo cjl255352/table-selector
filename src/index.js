@@ -46,26 +46,28 @@ function initWrapper(options, status = "enter") {
 
 function initDialog(options, status = "enter") {
   const vnode = (
-    <div
-      class={{
-        [`${options.classPrefix}-dialog`]: true,
-        [`${options.classPrefix}-dialog-enter`]: status == "enter",
-        [`${options.classPrefix}-dialog-leave`]: status == "leave",
-      }}
-      style={{
-        height: formatSize(options.height),
-        width: formatSize(options.width),
-      }}
-    >
-      {initHeader(options)}
-      {initSearch(options)}
-      <div class={{ [`${options.classPrefix}-body`]: true }}>
-        {initDataTable(options)}
-        {initSelectedTable(options)}
-      </div>
-      <div class={{ [`${options.classPrefix}-footer`]: true }}>
-        {initPagination(options)}
-        {initAction(options)}
+    <div class={{ [`${options.classPrefix}-dialog-wrapper`]: true }}>
+      <div
+        class={{
+          [`${options.classPrefix}-dialog`]: true,
+          [`${options.classPrefix}-dialog-enter`]: status == "enter",
+          [`${options.classPrefix}-dialog-leave`]: status == "leave",
+        }}
+        style={{
+          height: formatSize(options.height),
+          width: formatSize(options.width),
+        }}
+      >
+        {initHeader(options)}
+        {initSearch(options)}
+        <div class={{ [`${options.classPrefix}-body`]: true }}>
+          {initDataTable(options)}
+          {initSelectedTable(options)}
+        </div>
+        <div class={{ [`${options.classPrefix}-footer`]: true }}>
+          {initPagination(options)}
+          {initAction(options)}
+        </div>
       </div>
     </div>
   );
@@ -209,7 +211,11 @@ function initTableRow(options, columns, row, rowClick) {
         class={{ [`${options.classPrefix}-table-cell`]: true }}
         style={{ justifyContent: column.align, width: column.width }}
       >
-        <span>{row[column.prop]}</span>
+        <span>
+          {isFunction(column.formatter)
+            ? column.formatter(row, column, row[column.prop], row.$index)
+            : row[column.prop]}
+        </span>
       </div>
     ))
   );
@@ -295,9 +301,8 @@ function initPagination(options) {
 
 function initPageNumber(options) {
   const list = [];
-  const count = Math.ceil(sourceData.total / params.pageSize);
-  let i = 1;
-  while (i <= count) {
+  const arr = initPageArr(options);
+  arr.forEach((i) => {
     list.push(
       h(
         "div",
@@ -307,20 +312,67 @@ function initPageNumber(options) {
             [`${options.classPrefix}-pagination-num`]: true,
             [`${options.classPrefix}-pagination-num-current`]:
               params.pageNumber == i,
+            "el-icon-": i == "left" || i == "right",
+            [`${options.classPrefix}-pagination-left`]: i == "left",
+            [`${options.classPrefix}-pagination-right`]: i == "right",
           },
           on: {
             click: (e, v) => {
-              params.pageNumber = v.key;
+              if (v.key == "left") {
+                params.pageNumber = Math.max(1, params.pageNumber - 5);
+              } else if (v.key == "right") {
+                const max = Math.ceil(sourceData.total / params.pageSize);
+                params.pageNumber = Math.min(max, params.pageNumber + 5);
+              } else {
+                params.pageNumber = v.key;
+              }
               search(options);
             },
           },
         },
-        i
+        isNaN(i) ? "" : i
       )
     );
-    i++;
-  }
+  });
   return list;
+}
+
+function initPageArr(options) {
+  let arr = [];
+  let max = Math.ceil(sourceData.total / params.pageSize);
+  if (max > options.pageCount) {
+    let right = true;
+    arr.push(params.pageNumber);
+    let i = options.pageCount - 1;
+    while (i-- > 0) {
+      if (right) {
+        arr.push(arr[arr.length - 1] + 1);
+      } else {
+        arr.unshift(arr[0] - 1);
+      }
+      right = !right;
+    }
+    let diff = 0;
+    if (arr[0] < 1) {
+      diff = 1 - arr[0];
+    } else if (arr[arr.length - 1] > max) {
+      diff = arr[arr.length - 1] - max;
+    }
+    arr = arr.map((e) => e + diff);
+    if (arr[0] != 1) {
+      arr[0] = "left";
+      arr.unshift(1);
+    }
+    if (arr[arr.length - 1] != max) {
+      arr[arr.length - 1] = "right";
+      arr.push(max);
+    }
+  } else {
+    while (max > 0) {
+      arr.unshift(max--);
+    }
+  }
+  return arr;
 }
 
 function initAction(options) {
@@ -374,7 +426,8 @@ function search(options) {
 
 function searchDone(options) {
   const { rows } = sourceData;
-  rows.forEach((e) => {
+  rows.forEach((e, i) => {
+    e.$index = i;
     const isExist = options.value.find((f) => {
       return f[options.valueProp] == e[options.valueProp];
     });
