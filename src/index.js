@@ -356,7 +356,7 @@ function initPageArr(options) {
     if (arr[0] < 1) {
       diff = 1 - arr[0];
     } else if (arr[arr.length - 1] > max) {
-      diff = arr[arr.length - 1] - max;
+      diff = max - arr[arr.length - 1];
     }
     arr = arr.map((e) => e + diff);
     if (arr[0] != 1) {
