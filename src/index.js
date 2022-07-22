@@ -102,12 +102,22 @@ function initSearch(options) {
         props={{ placeholder: options.searchPlaceholder }}
         on={{
           input: (e) => (params.keyword = e.target.value),
-          keydown: (e) => e.keyCode == 13 && search(options),
+          keydown: (e) => {
+            if (e.keyCode == 13) {
+              params.pageNumber = 1;
+              search(options);
+            }
+          },
         }}
       />
       <div
         class={{ [`${options.classPrefix}-search-btn`]: true }}
-        on={{ click: () => search(options) }}
+        on={{
+          click: () => {
+            params.pageNumber = 1;
+            search(options);
+          },
+        }}
       >
         {icon("search")}
       </div>
