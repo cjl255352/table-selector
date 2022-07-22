@@ -1,6 +1,6 @@
 {
   "name": "table-selector",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/table-selector.js",
   "description": "",
   "scripts": {
