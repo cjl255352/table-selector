@@ -305,6 +305,11 @@ $border-color: #e0e0e0;
     content: "\e794";
   }
 
+  &-left:hover,
+  &-right:hover {
+    color: #ca1d22;
+  }
+
   &-left:hover::before {
     content: "\e6dd";
   }
