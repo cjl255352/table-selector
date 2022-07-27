@@ -134,7 +134,7 @@ function initDataTable(options, rows = []) {
       class: { [`${options.classPrefix}-table`]: true },
       style: { width: formatSize(options.dataTableWidth) },
     },
-    initTable(options, options.columns, rows, rowClick)
+    initTable(options, options.columns, rows, rowClick, "暂无数据")
   );
   if (!dataTable) {
     dataTable = vnode;
@@ -168,7 +168,7 @@ function initSelectedTable(options) {
   return vnode;
 }
 
-function initTable(options, columns, rows = [], rowClick) {
+function initTable(options, columns, rows = [], rowClick, emptyText) {
   const table = [];
   table.push(
     h(
@@ -200,7 +200,7 @@ function initTable(options, columns, rows = [], rowClick) {
       },
       [
         <span class={{ [`${options.classPrefix}-table-empty-text`]: true }}>
-          {!rows.length && "暂无数据"}
+          {!rows.length && emptyText}
         </span>,
       ]
     )
