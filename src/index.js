@@ -360,6 +360,7 @@ function initPageNumber(options) {
 
 function initPageArr(options) {
   let arr = [];
+  if (!sourceData.total && params.pageNumber == 1) return [1];
   let max = Math.ceil(sourceData.total / params.pageSize);
   if (max > options.pageCount) {
     let right = true;
