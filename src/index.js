@@ -192,10 +192,18 @@ function initTable(options, columns, rows = [], rowClick) {
     table.push(initTableRow(options, columns, row, rowClick));
   });
   table.push(
-    h("div", {
-      key: rowClick ? "data-empty" : "selected-empty",
-      class: { [`${options.classPrefix}-table-empty`]: true },
-    })
+    h(
+      "div",
+      {
+        key: rowClick ? "data-empty" : "selected-empty",
+        class: { [`${options.classPrefix}-table-empty`]: true },
+      },
+      [
+        <span class={{ [`${options.classPrefix}-table-empty-text`]: true }}>
+          {!rows.length && "暂无数据"}
+        </span>,
+      ]
+    )
   );
   return table;
 }

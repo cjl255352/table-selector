@@ -215,6 +215,14 @@ $border-color: #e0e0e0;
     position: sticky;
     bottom: 0;
     margin-top: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-text {
+      font-size: 14px;
+      color: red;
+    }
   }
 }
 
