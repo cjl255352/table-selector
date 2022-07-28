@@ -250,7 +250,7 @@ function initTableRow(options, columns, row, rowClick) {
               }}
               style={{
                 width: formatSize(options.tableRowHeight),
-                height: formatSize(options.tableRowHeight),
+                height: formatSize(options.tableRowHeight - 1),
               }}
               on={{
                 click: () => {
@@ -456,6 +456,12 @@ function initAction(options) {
 }
 
 function init2table(options) {
+  sourceData.rows.forEach((e) => {
+    const row = options.value.find(
+      (f) => f[options.valueProp] == e[options.valueProp]
+    );
+    e.$selected = !!row;
+  });
   selectedTable = patch(selectedTable, initSelectedTable(options));
   dataTable = patch(dataTable, initDataTable(options, sourceData.rows));
   dataTable.children.slice(1, dataTable.children.length - 1).forEach((e, i) => {
