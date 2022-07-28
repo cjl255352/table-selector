@@ -221,7 +221,7 @@ $border-color: #e0e0e0;
         @include center;
         display: none;
         color: #cbcbcb;
-        background-color: #fff;
+        background-color: $dialog-bg-color;
         box-sizing: border-box;
         border-left: 1px solid $border-color;
         cursor: pointer;
@@ -230,6 +230,16 @@ $border-color: #e0e0e0;
           content: "\e79d";
         }
       }
+    }
+
+    &-tooltip {
+      font-size: 12px;
+      position: fixed;
+      padding: 8px 12px;
+      background-color: $dialog-bg-color;
+      border-radius: 4px;
+      border: 1px solid $border-color;
+      z-index: 10000;
     }
   }
 
