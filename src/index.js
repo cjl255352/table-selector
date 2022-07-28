@@ -228,18 +228,56 @@ function initTableRow(options, columns, row, rowClick) {
         },
       },
     },
-    columns.map((column) => (
-      <div
-        class={{ [`${options.classPrefix}-table-cell`]: true }}
-        style={{ justifyContent: column.align, width: column.width }}
-      >
-        <span>
-          {isFunction(column.formatter)
-            ? column.formatter(row, column, row[column.prop], row.$index)
-            : row[column.prop]}
-        </span>
-      </div>
-    ))
+    columns.map((column) => {
+      if (column.remove) {
+        return (
+          <div
+            class={{
+              ["el-icon-"]: true,
+              [`${options.classPrefix}-table-cell`]: true,
+              [`${options.classPrefix}-table-cell-remove`]: true,
+            }}
+            style={{ width: column.width }}
+          >
+            <span style={{ flex: 1, textAlign: column.align }}>
+              {isFunction(column.formatter)
+                ? column.formatter(row, column, row[column.prop], row.$index)
+                : row[column.prop]}
+            </span>
+            <div
+              class={{ [`${options.classPrefix}-table-cell-remove-btn`]: true }}
+              style={{
+                width: formatSize(options.tableRowHeight),
+                height: formatSize(options.tableRowHeight),
+              }}
+              on={{
+                click: () => {
+                  row.$selected = false;
+                  const i = options.value.findIndex((e) => {
+                    return e[options.valueProp] == row[options.valueProp];
+                  });
+                  options.value.splice(i, 1);
+                  init2table(options);
+                },
+              }}
+            />
+          </div>
+        );
+      } else {
+        return (
+          <div
+            class={{ [`${options.classPrefix}-table-cell`]: true }}
+            style={{ justifyContent: column.align, width: column.width }}
+          >
+            <span>
+              {isFunction(column.formatter)
+                ? column.formatter(row, column, row[column.prop], row.$index)
+                : row[column.prop]}
+            </span>
+          </div>
+        );
+      }
+    })
   );
   return vnode;
 }
@@ -252,20 +290,11 @@ function initClearBtn(options) {
         class={{ [`${options.classPrefix}-selected-label-clear-btn`]: true }}
         on={{
           click: () => {
+            options.value.forEach((e) => {
+              e.$selected = false;
+            });
             options.value = [];
-            selectedTable = patch(selectedTable, initSelectedTable(options));
-            dataTable.children
-              .slice(1, dataTable.children.length - 1)
-              .forEach((e, i) => {
-                if (sourceData.rows[i].$selected) {
-                  sourceData.rows[i].$selected = false;
-                  e.elm.className = e.elm.className.replace(
-                    `${options.classPrefix}-table-row-selected`,
-                    ""
-                  );
-                }
-              });
-            searchDone(options);
+            init2table(options);
           },
         }}
       >
@@ -422,6 +451,19 @@ function initAction(options) {
     </div>
   );
   return vnode;
+}
+
+function init2table(options) {
+  selectedTable = patch(selectedTable, initSelectedTable(options));
+  dataTable = patch(dataTable, initDataTable(options, sourceData.rows));
+  dataTable.children.slice(1, dataTable.children.length - 1).forEach((e, i) => {
+    if (!sourceData.rows[i].$selected) {
+      e.elm.className = e.elm.className.replace(
+        `${options.classPrefix}-table-row-selected`,
+        ""
+      );
+    }
+  });
 }
 
 function rowClick(row, rowVnode, options, columns) {
