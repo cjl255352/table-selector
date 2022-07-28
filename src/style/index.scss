@@ -205,6 +205,29 @@ $border-color: #e0e0e0;
     &:first-child {
       border-left: 1px solid $border-color;
     }
+
+    &-remove {
+      &:hover {
+        padding-right: 0;
+
+        .#{$class-prefix}-table-cell-remove-btn {
+          display: flex;
+        }
+      }
+
+      &-btn {
+        flex-shrink: 0;
+        font-size: 16px;
+        display: none;
+        @include center;
+        border-left: 1px solid $border-color;
+        cursor: pointer;
+
+        &::before {
+          content: "\e79d";
+        }
+      }
+    }
   }
 
   &-empty {
