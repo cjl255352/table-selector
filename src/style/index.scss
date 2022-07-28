@@ -218,9 +218,13 @@ $border-color: #e0e0e0;
       &-btn {
         flex-shrink: 0;
         font-size: 16px;
-        display: none;
         @include center;
+        display: none;
+        color: #cbcbcb;
+        background-color: #fff;
+        box-sizing: border-box;
         border-left: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
         cursor: pointer;
 
         &::before {
