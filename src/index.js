@@ -18,6 +18,8 @@ let dialog;
 let dataTable;
 let selectedTable;
 let pagination;
+let tooltip;
+let timer;
 
 let sourceData = {
   rows: [],
@@ -229,6 +231,9 @@ function initTableRow(options, columns, row, rowClick) {
       },
     },
     columns.map((column) => {
+      const text = isFunction(column.formatter)
+        ? column.formatter(row, column, row[column.prop], row.$index)
+        : row[column.prop];
       if (column.remove) {
         return (
           <div
@@ -238,10 +243,11 @@ function initTableRow(options, columns, row, rowClick) {
             }}
             style={{ width: column.width }}
           >
-            <span style={{ flex: 1, textAlign: column.align }}>
-              {isFunction(column.formatter)
-                ? column.formatter(row, column, row[column.prop], row.$index)
-                : row[column.prop]}
+            <span
+              style={{ flex: 1, textAlign: column.align }}
+              props={{ title: text }}
+            >
+              {text}
             </span>
             <div
               class={{
@@ -252,6 +258,7 @@ function initTableRow(options, columns, row, rowClick) {
                 width: formatSize(options.tableRowHeight),
                 height: formatSize(options.tableRowHeight - 1),
               }}
+              props={{ title: "移除" }}
               on={{
                 click: () => {
                   row.$selected = false;
@@ -270,12 +277,12 @@ function initTableRow(options, columns, row, rowClick) {
           <div
             class={{ [`${options.classPrefix}-table-cell`]: true }}
             style={{ justifyContent: column.align, width: column.width }}
+            on={{
+              mouseenter: (e) => showTooltip(e, options, text),
+              mouseleave: closeTooltip,
+            }}
           >
-            <span>
-              {isFunction(column.formatter)
-                ? column.formatter(row, column, row[column.prop], row.$index)
-                : row[column.prop]}
-            </span>
+            <span>{text}</span>
           </div>
         );
       }
@@ -472,6 +479,38 @@ function init2table(options) {
       );
     }
   });
+}
+
+function showTooltip(e, options, text) {
+  timer = setTimeout(() => {
+    const { clientWidth, scrollWidth } = e.target.firstChild;
+    if (clientWidth == scrollWidth) {
+      closeTooltip();
+      return;
+    }
+    const { top, left, width } = e.target.getBoundingClientRect();
+    const vnode = (
+      <div
+        class={{ [`${options.classPrefix}-table-cell-tooltip`]: true }}
+        style={{ top: `${top - 30 - 4}px`, left: `${left + width / 2}px` }}
+      >
+        {text}
+      </div>
+    );
+    if (!tooltip) {
+      patch(getMountPoint(1), vnode);
+    } else {
+      patch(tooltip, vnode);
+    }
+    tooltip = vnode;
+  }, 500);
+}
+
+function closeTooltip() {
+  clearTimeout(timer);
+  if (tooltip) {
+    tooltip = patch(tooltip, <div style={{ display: "none" }} />);
+  }
 }
 
 function rowClick(row, rowVnode, options, columns) {
