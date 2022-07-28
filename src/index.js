@@ -157,6 +157,7 @@ function initSelectedTable(options) {
           label: initClearBtn(options),
           prop: options.labelProp,
           width: "100%",
+          remove: true,
         },
       ],
       options.value
