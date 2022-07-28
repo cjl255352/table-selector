@@ -233,7 +233,6 @@ function initTableRow(options, columns, row, rowClick) {
         return (
           <div
             class={{
-              ["el-icon-"]: true,
               [`${options.classPrefix}-table-cell`]: true,
               [`${options.classPrefix}-table-cell-remove`]: true,
             }}
@@ -245,7 +244,10 @@ function initTableRow(options, columns, row, rowClick) {
                 : row[column.prop]}
             </span>
             <div
-              class={{ [`${options.classPrefix}-table-cell-remove-btn`]: true }}
+              class={{
+                ["el-icon-"]: true,
+                [`${options.classPrefix}-table-cell-remove-btn`]: true,
+              }}
               style={{
                 width: formatSize(options.tableRowHeight),
                 height: formatSize(options.tableRowHeight),
