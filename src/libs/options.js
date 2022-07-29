@@ -4,7 +4,7 @@ import { getScrollBarWidth } from "./utils";
 
 const defaultOptions = {
   classPrefix: "table-selector",
-  height: 504,
+  height: 508,
   width: 760,
   title: "流程选择",
   titlePosition: "left",
@@ -25,11 +25,6 @@ const defaultOptions = {
       },
     },
     {
-      label: "PDMC领域",
-      prop: "domainInfo",
-      width: 110,
-    },
-    {
       label: "电子流名称",
       prop: "electronFlowName",
     },
@@ -37,6 +32,11 @@ const defaultOptions = {
       label: "电子流owner",
       prop: "ownerName",
       width: 100,
+    },
+    {
+      label: "PDMC领域",
+      prop: "domainInfo",
+      width: 110,
     },
   ],
   value: [],

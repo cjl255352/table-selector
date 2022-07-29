@@ -136,7 +136,7 @@ function initDataTable(options, rows = []) {
       class: { [`${options.classPrefix}-table`]: true },
       style: { width: formatSize(options.dataTableWidth) },
     },
-    initTable(options, options.columns, rows, rowClick, "暂无数据")
+    initTable(options, options.columns, rows, rowClick)
   );
   if (!dataTable) {
     dataTable = vnode;
@@ -171,7 +171,13 @@ function initSelectedTable(options) {
   return vnode;
 }
 
-function initTable(options, columns, rows = [], rowClick, emptyText) {
+function initTable(
+  options,
+  columns,
+  rows = [],
+  rowClick,
+  emptyText = "暂无数据"
+) {
   const table = [];
   table.push(
     h(
@@ -294,7 +300,7 @@ function initTableRow(options, columns, row, rowClick) {
 function initClearBtn(options) {
   const vnode = (
     <div class={{ [`${options.classPrefix}-selected-label`]: true }}>
-      <span>已选择{`（${options.value.length}）`}</span>
+      <span>已选择{`(${options.value.length})`}</span>
       <div
         class={{ [`${options.classPrefix}-selected-label-clear-btn`]: true }}
         on={{
