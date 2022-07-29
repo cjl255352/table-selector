@@ -176,6 +176,7 @@ $border-color: #e0e0e0;
   &-row {
     &:hover {
       background-color: $hover-bg-color;
+      cursor: pointer;
     }
 
     &-selected {
